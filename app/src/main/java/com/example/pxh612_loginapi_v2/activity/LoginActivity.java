@@ -26,15 +26,17 @@ import com.example.pxh612_loginapi_v2.viewmodel.LoginViewModel;
 
 public class LoginActivity extends AppCompatActivity implements LoginAsyncTaskListener {
 
-    // Login status
+    // enum
     public enum LOGIN_STATUS{
         SUCCESSFUL,
         INVALID,
         NO_CONNECTION
     }
 
-    // ProjectStructure
+    // Class
     LoginViewModel loginViewModel = new LoginViewModel();
+    MyDialogFragment myDialogFragment = new MyDialogFragment();
+
 
     // XML
     EditText usernameEditText;
@@ -50,7 +52,7 @@ public class LoginActivity extends AppCompatActivity implements LoginAsyncTaskLi
     String username;
     String password;
 
-    // Example
+    // Pretype
     String usernamePretype = AccountExample.email;
     String passwordPretype = AccountExample.password;
 
@@ -64,9 +66,7 @@ public class LoginActivity extends AppCompatActivity implements LoginAsyncTaskLi
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-        MyDialogFragment myDialogFragment = new MyDialogFragment();
-        fragmentTransaction.add(R.id.fragment_my_dialog, myDialogFragment);
-
+        fragmentTransaction.add(R.id.loading_layout, myDialogFragment);
         fragmentTransaction.commit();
 
         // XML: attach
@@ -76,7 +76,7 @@ public class LoginActivity extends AppCompatActivity implements LoginAsyncTaskLi
         signupButton = findViewById(R.id.signup);
         connectWithGoogleButton = findViewById(R.id.connect_to_google_button);
         showPassword = findViewById(R.id.show_password);
-        progressBar = findViewById(R.id.progressbar_cyclic);
+//        progressBar = findViewById(R.id.progressbar_cyclic);
         loadingLayout = findViewById(R.id.loading_layout);
 
         // Intialize XML
@@ -96,7 +96,7 @@ public class LoginActivity extends AppCompatActivity implements LoginAsyncTaskLi
 
 //                fetchUserInput();
 //                loginViewModel.gainAccessToServer(username, password);
-                showLoadingDialog();
+                myDialogFragment.showLoadingDialog();
 ////
 //
 //                if(loginViewModel.gainAccessSuccessfully(username, password)){
@@ -133,13 +133,13 @@ public class LoginActivity extends AppCompatActivity implements LoginAsyncTaskLi
     @Override
     public void onLoginAsyncTaskPostExecute(LOGIN_STATUS result) {
         if(result == LOGIN_STATUS.SUCCESSFUL){
-            hideLoadingDialog();
+            myDialogFragment.hideLoadingDialog();
         }
         else if(result == LOGIN_STATUS.INVALID){
-            notifyLoginInvalid();
+            myDialogFragment.notifyLoginInvalid();
         }
         else if(result == LOGIN_STATUS.NO_CONNECTION){
-            notifyNoConnection();
+            myDialogFragment.notifyNoConnection();
         }
     }
 
