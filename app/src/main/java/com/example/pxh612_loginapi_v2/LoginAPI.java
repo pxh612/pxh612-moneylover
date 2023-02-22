@@ -99,6 +99,7 @@ public class LoginAPI {
     private static String getB64Auth (String login, String pass) {
         String source = login + ":" + pass;
         String ret = "Basic " + Base64.encodeToString(source.getBytes(), Base64.URL_SAFE | Base64.NO_WRAP);
+        Log.i("String: ", "LoginAPI > getB64Auth > ret : " + ret);
         return ret;
     }
 }

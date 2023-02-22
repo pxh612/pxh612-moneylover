@@ -33,6 +33,10 @@ public class LoginActivity extends AppCompatActivity {
     String username;
     String password;
 
+    // Example
+    private final String usernamePretype="kHiZbFQOw5LV";
+    private final String passwordPretype="ekUWFeUwS2YqsWmlmCOYCzqRq07Mef";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +50,10 @@ public class LoginActivity extends AppCompatActivity {
         signupButton = findViewById(R.id.signup);
         connectWithGoogleButton = findViewById(R.id.connect_to_google_button);
         showPassword = findViewById(R.id.show_password);
+
+        // Intialize XML
+        usernameEditText.setText(usernamePretype);
+        passwordEditText.setText(passwordPretype);
 
         // Button click
         loginButton.setOnClickListener(new View.OnClickListener() {
