@@ -18,6 +18,7 @@ public class LoginAPI {
     private static final String dogAPIMistake = "https://dog.ceo/dog-api/";
     private static final String dogAPI = "https://dog.ceo/api/breeds/image/random";
     private static final String TOKEN_API = "https://oauth-sandbox.moneylover.me/token";
+    private static final String REQUEST_TOKEN_API = "https://oauth-sandbox.moneylover.me/request-token";
 
 //    private static String username;
 //    private static String password;
@@ -30,7 +31,7 @@ public class LoginAPI {
         BufferedReader reader = null;
 
         try {
-            URL url = new URL(TOKEN_API);
+            URL url = new URL(REQUEST_TOKEN_API);
             conn = (HttpURLConnection) url.openConnection();
 
             conn.setDoInput(true);
