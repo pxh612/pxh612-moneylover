@@ -3,6 +3,9 @@ package com.example.pxh612_loginapi_v2;
 import android.util.Base64;
 import android.util.Log;
 
+import com.example.pxh612_loginapi_v2.database.ConsumerKey;
+import com.example.pxh612_loginapi_v2.database.URLs;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -15,10 +18,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public class RequestTokenAPI {
-    private static final String dogAPIMistake = "https://dog.ceo/dog-api/";
-    private static final String dogAPI = "https://dog.ceo/api/breeds/image/random";
-    private static final String TOKEN_API = "https://oauth-sandbox.moneylover.me/token";
-    private static final String REQUEST_TOKEN_API = "https://oauth-sandbox.moneylover.me/request-token";
 
 //    private static String username;
 //    private static String password;
@@ -31,7 +30,7 @@ public class RequestTokenAPI {
         BufferedReader reader = null;
 
         try {
-            URL url = new URL(REQUEST_TOKEN_API);
+            URL url = new URL(URLs.REQUEST_TOKEN_API);
             conn = (HttpURLConnection) url.openConnection();
 
             conn.setDoInput(true);
@@ -60,7 +59,7 @@ public class RequestTokenAPI {
 
             while ((line = reader.readLine()) != null) {
                 buffer.append(line + "\n");
-                Log.d("Response: ", " " + line);   //here u ll get whole response...... :-)
+                Log.d("__ Response: ", "RequestTokenAPI > fetchIsSucessfully : " + line);   //here u ll get whole response...... :-)
             }
 
             JSONObject response = new JSONObject(buffer.toString());

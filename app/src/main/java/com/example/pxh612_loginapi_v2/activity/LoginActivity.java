@@ -13,10 +13,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.pxh612_loginapi_v2.R;
+import com.example.pxh612_loginapi_v2.database.AccountExample;
 import com.example.pxh612_loginapi_v2.viewmodel.LoginViewModel;
 
 
 public class LoginActivity extends AppCompatActivity {
+
+    // Login status
+    enum LOGIN_STATUS{
+        SUCCESSFUL,
+        INVALID,
+        NO_CONNECTION
+    }
 
     // ProjectStructure
     LoginViewModel loginViewModel = new LoginViewModel();
@@ -34,8 +42,8 @@ public class LoginActivity extends AppCompatActivity {
     String password;
 
     // Example
-    private final String usernamePretype="kHiZbFQOw5LV";
-    private final String passwordPretype="ekUWFeUwS2YqsWmlmCOYCzqRq07Mef";
+    String usernamePretype = AccountExample.email;
+    String passwordPretype = AccountExample.password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,8 +67,12 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //TODO
 
                 fetchUserInput();
+                loginViewModel.gainAccessToServer(username, password);
+                showLoadingScreen();
+
 
                 if(loginViewModel.gainAccessSuccessfully(username, password)){
                     startMainActivity();
@@ -68,7 +80,6 @@ public class LoginActivity extends AppCompatActivity {
                 else {
                     notifyLoginError();
                 }
-
             }
         });
         signupButton.setOnClickListener(new View.OnClickListener() {
