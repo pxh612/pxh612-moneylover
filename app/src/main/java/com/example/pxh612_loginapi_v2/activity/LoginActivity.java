@@ -1,6 +1,9 @@
 package com.example.pxh612_loginapi_v2.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -14,12 +17,14 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.pxh612_loginapi_v2.LoginAsyncTaskListener;
 import com.example.pxh612_loginapi_v2.R;
 import com.example.pxh612_loginapi_v2.database.AccountExample;
+import com.example.pxh612_loginapi_v2.fragment.MyDialogFragment;
 import com.example.pxh612_loginapi_v2.viewmodel.LoginViewModel;
 
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements LoginAsyncTaskListener {
 
     // Login status
     public enum LOGIN_STATUS{
@@ -39,6 +44,7 @@ public class LoginActivity extends AppCompatActivity {
     ImageView showPassword;
     Button signupButton;
     ProgressBar progressBar;
+    ConstraintLayout loadingLayout;
 
     // Data
     String username;
@@ -54,6 +60,14 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        // Fragment
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        MyDialogFragment myDialogFragment = new MyDialogFragment();
+        fragmentTransaction.add(R.id.fragment_my_dialog, myDialogFragment);
+
+        fragmentTransaction.commit();
 
         // XML: attach
         usernameEditText = findViewById(R.id.username);
@@ -63,12 +77,18 @@ public class LoginActivity extends AppCompatActivity {
         connectWithGoogleButton = findViewById(R.id.connect_to_google_button);
         showPassword = findViewById(R.id.show_password);
         progressBar = findViewById(R.id.progressbar_cyclic);
+        loadingLayout = findViewById(R.id.loading_layout);
 
         // Intialize XML
         usernameEditText.setText(usernamePretype);
         passwordEditText.setText(passwordPretype);
+        loadingLayout.setVisibility(View.GONE);
 
         // Button click
+        onCreateButtonClick();
+    }
+
+    private void onCreateButtonClick() {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -76,7 +96,7 @@ public class LoginActivity extends AppCompatActivity {
 
 //                fetchUserInput();
 //                loginViewModel.gainAccessToServer(username, password);
-                showLoadingScreen();
+                showLoadingDialog();
 ////
 //
 //                if(loginViewModel.gainAccessSuccessfully(username, password)){
@@ -110,8 +130,23 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void showLoadingScreen() {
-        progressBar.setVisibility(View.VISIBLE);
+    @Override
+    public void onLoginAsyncTaskPostExecute(LOGIN_STATUS result) {
+        if(result == LOGIN_STATUS.SUCCESSFUL){
+            hideLoadingDialog();
+        }
+        else if(result == LOGIN_STATUS.INVALID){
+            notifyLoginInvalid();
+        }
+        else if(result == LOGIN_STATUS.NO_CONNECTION){
+            notifyNoConnection();
+        }
+    }
+
+    private void showLoadingDialog() {
+        //TODO: darken background, have to implement DialogFragment
+        //progressBar.setVisibility(View.VISIBLE);
+        loadingLayout.setVisibility(View.VISIBLE);
     }
 
 
@@ -138,7 +173,7 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void notifyLoginError() {
+    private void notifyLoginInvalid() {
         String errorMessage = "Incorrect username or password";
         Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show();
     }
