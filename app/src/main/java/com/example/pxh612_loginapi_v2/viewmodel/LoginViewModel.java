@@ -5,7 +5,8 @@ import com.example.pxh612_loginapi_v2.LoginAsyncTask;
 public class LoginViewModel {
 
     public boolean gainAccessSuccessfully(String username, String password) {
-        new LoginAsyncTask().execute();
+//        new LoginAsyncTask().execute();
+        new LoginAsyncTask(username, password).execute();
         return false;
     }
 }

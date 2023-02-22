@@ -15,12 +15,16 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public class LoginAPI {
-    private static final String dogAPIMistake="https://dog.ceo/dog-api/";
-    private static final String dogAPI="https://dog.ceo/api/breeds/image/random";
+    private static final String dogAPIMistake = "https://dog.ceo/dog-api/";
+    private static final String dogAPI = "https://dog.ceo/api/breeds/image/random";
     private static final String TOKEN_API = "https://oauth-sandbox.moneylover.me/token";
 
-    public static String fetch(){
-g
+//    private static String username;
+//    private static String password;
+
+    public static String fetch(String username, String password) {
+//        this.username = username;
+//        this.password = password;
 
         HttpURLConnection conn = null;
         BufferedReader reader = null;
@@ -33,7 +37,7 @@ g
             conn.setDoOutput(true);
             conn.setRequestMethod("POST");
 
-            putRequestHeader(conn);
+            putRequestHeader(conn, username, password);
 
             conn.setReadTimeout(10000);
             conn.setConnectTimeout(15000);
@@ -54,7 +58,7 @@ g
 
 
             while ((line = reader.readLine()) != null) {
-                buffer.append(line+"\n");
+                buffer.append(line + "\n");
                 Log.d("Response: ", " " + line);   //here u ll get whole response...... :-)
             }
 
@@ -72,8 +76,7 @@ g
             e.printStackTrace();
         } catch (JSONException e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (conn != null) {
                 conn.disconnect();
             }
@@ -88,12 +91,14 @@ g
         return null;
     }
 
-    private static void putRequestHeader(HttpURLConnection conn) {
-        conn.setRequestProperty("Accept-Charset", "UTF-8");
+    private static void putRequestHeader(HttpURLConnection conn, String username, String password) {
+//        conn.setRequestProperty("Accept-Charset", "UTF-8");
+        conn.setRequestProperty("Authorization", getB64Auth(username, password));
     }
 
-    private String getB64Auth (String login, String pass) {
-        String source=login+":"+pass;
-        String ret="Basic "+ Base64.encodeToString(source.getBytes(),Base64.URL_SAFE|Base64.NO_WRAP);
+    private static String getB64Auth (String login, String pass) {
+        String source = login + ":" + pass;
+        String ret = "Basic " + Base64.encodeToString(source.getBytes(), Base64.URL_SAFE | Base64.NO_WRAP);
         return ret;
+    }
 }

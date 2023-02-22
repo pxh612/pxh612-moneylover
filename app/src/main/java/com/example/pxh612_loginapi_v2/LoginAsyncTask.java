@@ -1,17 +1,20 @@
 package com.example.pxh612_loginapi_v2;
 
-import android.graphics.Bitmap;
 import android.os.AsyncTask;
-import android.text.PrecomputedText;
-import android.util.Log;
-
-import androidx.core.text.PrecomputedTextCompat;
 
 public class LoginAsyncTask extends AsyncTask<Void, Void, String> {
 
+    private String username;
+    private String password;
+
+    public LoginAsyncTask(String username, String password){
+        this.username = username;
+        this.password = password;
+    }
+
     @Override
     protected String doInBackground(Void... voids) {
-        LoginAPI.fetch();
+        LoginAPI.fetch(username, password);
 //        LoginAPIFake.fetch();
         return null;
     }
