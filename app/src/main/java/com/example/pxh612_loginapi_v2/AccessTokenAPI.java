@@ -3,6 +3,7 @@ package com.example.pxh612_loginapi_v2;
 import android.util.Base64;
 import android.util.Log;
 
+import com.example.pxh612_loginapi_v2.activity.LoginActivity;
 import com.example.pxh612_loginapi_v2.database.ConsumerKey;
 import com.example.pxh612_loginapi_v2.database.URLs;
 
@@ -24,7 +25,7 @@ public class AccessTokenAPI {
 //    private static String username;
 //    private static String password;
 
-    public static boolean fetchIsSucessfully(String email, String password) {
+    public static LoginActivity.LOGIN_STATUS fetchIsSucessfully(String email, String password) {
 //        this.username = username;
 //        this.password = password;
 
@@ -88,7 +89,7 @@ public class AccessTokenAPI {
                 e.printStackTrace();
             }
         }
-        return false;
+        return LoginActivity.LOGIN_STATUS.INVALID;
     }
 
     private static void putRequestBody(HttpURLConnection conn, String email, String password) {
@@ -113,7 +114,7 @@ public class AccessTokenAPI {
 
     }
 
-    private static boolean fetchResponseIsSuccessful(JSONObject response) {
+    private static LoginActivity.LOGIN_STATUS fetchResponseIsSuccessful(JSONObject response) {
         String status = null;
         try {
             status = response.getString("status");
@@ -130,14 +131,14 @@ public class AccessTokenAPI {
                 CurrentAccount.setExpireDate(expire);
                 CurrentAccount.setRefreshToken(refresh_token);
 
-                return true;
+                return LoginActivity.LOGIN_STATUS.SUCCESSFUL;
             }
-            else return false;
+            else return LoginActivity.LOGIN_STATUS.INVALID;
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return false;
+        return LoginActivity.LOGIN_STATUS.INVALID;
     }
 
     private static void putRequestHeader(HttpURLConnection conn) {

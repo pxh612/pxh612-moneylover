@@ -20,7 +20,7 @@ import com.example.pxh612_loginapi_v2.viewmodel.LoginViewModel;
 public class LoginActivity extends AppCompatActivity {
 
     // Login status
-    enum LOGIN_STATUS{
+    public enum LOGIN_STATUS{
         SUCCESSFUL,
         INVALID,
         NO_CONNECTION
@@ -69,17 +69,17 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 //TODO
 
-                fetchUserInput();
-                loginViewModel.gainAccessToServer(username, password);
-                showLoadingScreen();
-
-
-                if(loginViewModel.gainAccessSuccessfully(username, password)){
-                    startMainActivity();
-                }
-                else {
-                    notifyLoginError();
-                }
+//                fetchUserInput();
+//                loginViewModel.gainAccessToServer(username, password);
+//                showLoadingScreen();
+//
+//
+//                if(loginViewModel.gainAccessSuccessfully(username, password)){
+//                    startMainActivity();
+//                }
+//                else {
+//                    notifyLoginError();
+//                }
             }
         });
         signupButton.setOnClickListener(new View.OnClickListener() {
