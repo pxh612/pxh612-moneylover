@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="log_in_edge_margin">30dp</dimen>
+    <dimen name="toolbar_height">40dp</dimen>
+    <dimen name="edge_margin">10dp</dimen>
+    <dimen name="button_gap">17dp</dimen>
+    <dimen name="button_width">320dp</dimen>
+    <dimen name="button_height">33dp</dimen>
+    <dimen name="icon_width">17dp</dimen>
+    <dimen name="icon_height">17dp</dimen>
+    <dimen name="icon_margin_edge">9dp</dimen>
+    <dimen name="log_in_button_height">40dp</dimen>
+    <dimen name="show_password_icon_height">23dp</dimen>
+    <dimen name="show_password_icon_width">23dp</dimen>
+</resources>
