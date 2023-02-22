@@ -2,6 +2,7 @@ package com.example.pxh612_loginapi_v2.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,6 +38,7 @@ public class LoginActivity extends AppCompatActivity {
     TextView connectWithGoogleButton;
     ImageView showPassword;
     Button signupButton;
+    ProgressBar progressBar;
 
     // Data
     String username;
@@ -45,6 +48,7 @@ public class LoginActivity extends AppCompatActivity {
     String usernamePretype = AccountExample.email;
     String passwordPretype = AccountExample.password;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +62,7 @@ public class LoginActivity extends AppCompatActivity {
         signupButton = findViewById(R.id.signup);
         connectWithGoogleButton = findViewById(R.id.connect_to_google_button);
         showPassword = findViewById(R.id.show_password);
+        progressBar = findViewById(R.id.progressbar_cyclic);
 
         // Intialize XML
         usernameEditText.setText(usernamePretype);
@@ -71,8 +76,8 @@ public class LoginActivity extends AppCompatActivity {
 
 //                fetchUserInput();
 //                loginViewModel.gainAccessToServer(username, password);
-//                showLoadingScreen();
-//
+                showLoadingScreen();
+////
 //
 //                if(loginViewModel.gainAccessSuccessfully(username, password)){
 //                    startMainActivity();
@@ -103,6 +108,10 @@ public class LoginActivity extends AppCompatActivity {
                 toggleShowPassword();
             }
         });
+    }
+
+    private void showLoadingScreen() {
+        progressBar.setVisibility(View.VISIBLE);
     }
 
 

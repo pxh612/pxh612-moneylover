@@ -100,6 +100,8 @@ public class AccessTokenAPI {
 //                "    \"password\": \"123456\"\n" +
 //                "}";
 
+        //TODO: neater JSON convert
+
         jsonInputString = "{\n" +
                 "    \"email\": \"" + email + "\",\n" +
                 "    \"password\": \"" + password + "\"\n" +

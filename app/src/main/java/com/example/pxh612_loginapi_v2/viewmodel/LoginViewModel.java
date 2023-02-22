@@ -11,4 +11,10 @@ public class LoginViewModel {
         new LoginAsyncTask(username, password).execute();
         return false;
     }
+
+    public void gainAccessToServer(String username, String password) {
+        CurrentAccount.setUsername(username);
+        new LoginAsyncTask(username, password).execute();
+        return ;
+    }
 }
