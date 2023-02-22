@@ -1,5 +1,6 @@
 package com.example.pxh612_loginapi_v2;
 
+import android.util.Base64;
 import android.util.Log;
 
 import org.json.JSONException;
@@ -19,7 +20,7 @@ public class LoginAPI {
     private static final String TOKEN_API = "https://oauth-sandbox.moneylover.me/token";
 
     public static String fetch(){
-
+g
 
         HttpURLConnection conn = null;
         BufferedReader reader = null;
@@ -28,9 +29,11 @@ public class LoginAPI {
             URL url = new URL(TOKEN_API);
             conn = (HttpURLConnection) url.openConnection();
 
+            conn.setDoInput(true);
             conn.setDoOutput(true);
             conn.setRequestMethod("POST");
-            conn.setRequestProperty("Accept-Charset", "UTF-8");
+
+            putRequestHeader(conn);
 
             conn.setReadTimeout(10000);
             conn.setConnectTimeout(15000);
@@ -84,4 +87,13 @@ public class LoginAPI {
         }
         return null;
     }
+
+    private static void putRequestHeader(HttpURLConnection conn) {
+        conn.setRequestProperty("Accept-Charset", "UTF-8");
+    }
+
+    private String getB64Auth (String login, String pass) {
+        String source=login+":"+pass;
+        String ret="Basic "+ Base64.encodeToString(source.getBytes(),Base64.URL_SAFE|Base64.NO_WRAP);
+        return ret;
 }

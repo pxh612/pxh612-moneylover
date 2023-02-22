@@ -11,8 +11,8 @@ public class LoginAsyncTask extends AsyncTask<Void, Void, String> {
 
     @Override
     protected String doInBackground(Void... voids) {
-//        LoginAPI.fetch();
-        LoginAPIFake.fetch();
+        LoginAPI.fetch();
+//        LoginAPIFake.fetch();
         return null;
     }
 
