@@ -14,7 +14,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class LoginAPI {
+public class RequestTokenAPI {
     private static final String dogAPIMistake = "https://dog.ceo/dog-api/";
     private static final String dogAPI = "https://dog.ceo/api/breeds/image/random";
     private static final String TOKEN_API = "https://oauth-sandbox.moneylover.me/token";
@@ -23,7 +23,7 @@ public class LoginAPI {
 //    private static String username;
 //    private static String password;
 
-    public static String fetch(String username, String password) {
+    public static boolean fetchIsSucessfully(String username, String password) {
 //        this.username = username;
 //        this.password = password;
 
@@ -64,12 +64,12 @@ public class LoginAPI {
             }
 
             JSONObject response = new JSONObject(buffer.toString());
-//            String message = response.getString("message");
-//            String status = response.getString("status");
-//
-//            if(status.equals("success")){
-//                return message;
-//            }
+            String status = response.getString("status");
+            if(status.equals("true")){
+                String request_token = response.getString("request_token");
+                CurrentAccount.setRequestToken(request_token);
+            }
+            else return false;
 
         } catch (MalformedURLException e) {
             e.printStackTrace();
@@ -89,7 +89,7 @@ public class LoginAPI {
                 e.printStackTrace();
             }
         }
-        return null;
+        return false;
     }
 
     private static void putRequestHeader(HttpURLConnection conn, String username, String password) {

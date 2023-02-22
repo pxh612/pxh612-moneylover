@@ -2,7 +2,7 @@ package com.example.pxh612_loginapi_v2;
 
 import android.os.AsyncTask;
 
-public class LoginAsyncTask extends AsyncTask<Void, Void, String> {
+public class LoginAsyncTask extends AsyncTask<Void, Void, Boolean> {
 
     private String username;
     private String password;
@@ -13,13 +13,12 @@ public class LoginAsyncTask extends AsyncTask<Void, Void, String> {
     }
 
     @Override
-    protected String doInBackground(Void... voids) {
-        LoginAPI.fetch(username, password);
+    protected Boolean doInBackground(Void... voids) {
+        return RequestTokenAPI.fetchIsSucessfully(username, password);
 //        LoginAPIFake.fetch();
-        return null;
     }
 
-    protected void onPostExecute(String response){
+    protected void onPostExecute(Boolean result){
         //TODO
         return;
     }

@@ -1,7 +1,11 @@
 package com.example.pxh612_loginapi_v2;
 
 
+import android.util.Log;
+
 public class CurrentAccount {
+
+    private static String requestToken;
 
     static Account account = new Account();
     private static boolean isLoggedIn = false;
@@ -29,5 +33,10 @@ public class CurrentAccount {
 
     public static boolean isLoggedIn() {
         return isLoggedIn;
+    }
+
+    public static void setRequestToken(String request_token) {
+        requestToken = request_token;
+        Log.d("String value: ", "CurrentAccount > requestToken : " + requestToken);
     }
 }
