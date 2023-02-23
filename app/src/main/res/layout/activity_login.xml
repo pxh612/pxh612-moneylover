@@ -7,354 +7,364 @@
     tools:context=".activity.LoginActivity">
 
 
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/toolbar_height"
-        android:id="@+id/toolbar"
-        android:visibility="invisible"
-        android:background="@color/toolbar_color"
-        ></View>
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/toolbar_height"
-        android:id="@+id/back_button"
-        android:src="@drawable/ic_back_arrow_custom_tab"
-        android:layout_marginLeft="@dimen/edge_margin"
-        android:visibility="gone"
-        app:layout_constraintLeft_toLeftOf="@+id/toolbar"
-        ></ImageView>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/signin"
-        android:text="Sign in v2"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"
-        android:layout_marginTop="10dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:textSize="25dp"
-        android:textColor="@color/black"
-        ></TextView>
-
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/connect_to_facebook_frame_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/signin">
-
-        <TextView
-            android:id="@+id/connect_to_facebook_button"
-            android:layout_width="@dimen/button_width"
-            android:layout_height="@dimen/button_height"
-            android:background="@color/light_gray"
-            android:foreground="@android:color/transparent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:layout_gravity="center"
-            app:layout_constraintRight_toRightOf="parent">
-        </TextView>
-
-        <ImageView
-            android:layout_width="@dimen/icon_height"
-            android:layout_height="@dimen/icon_width"
-            android:src="@drawable/ic_icon_facebook"
-            app:layout_constraintLeft_toLeftOf="@id/connect_to_facebook_button"
-            android:layout_marginLeft="@dimen/icon_margin_edge"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            />
-
-        <TextView
-            android:id="@+id/connect_to_facebook"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="CONNECT WITH FACEBOOK"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:textColor="@color/connect_with_facebook_text_color"
-            android:textStyle="bold"
-            ></TextView>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/connect_to_google_frame_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/button_gap"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/connect_to_facebook_frame_layout">
-
-        <TextView
-            android:id="@+id/connect_to_google_button"
-            android:layout_width="@dimen/button_width"
-            android:layout_height="@dimen/button_height"
-            android:background="@color/light_gray"
-            android:foreground="@android:color/transparent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:layout_gravity="center"
-            app:layout_constraintRight_toRightOf="parent">
-        </TextView>
-
-        <ImageView
-            android:layout_width="@dimen/icon_height"
-            android:layout_height="@dimen/icon_width"
-            android:src="@drawable/ic_icon_goole"
-            app:layout_constraintLeft_toLeftOf="@id/connect_to_google_button"
-            android:layout_marginLeft="@dimen/icon_margin_edge"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            />
-
-        <TextView
-            android:id="@+id/connect_to_goole"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="CONNECT WITH GOOGLE"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:textColor="@color/connect_with_google_text_color"
-            android:textStyle="bold"
-            ></TextView>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/connect_to_apple_frame_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/button_gap"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/connect_to_google_frame_layout">
-
-        <TextView
-            android:id="@+id/connect_to_apple_button"
-            android:layout_width="@dimen/button_width"
-            android:layout_height="@dimen/button_height"
-            android:background="@color/light_gray"
-            android:foreground="@android:color/transparent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:layout_gravity="center"
-            app:layout_constraintRight_toRightOf="parent">
-        </TextView>
-
-        <ImageView
-            android:layout_width="@dimen/icon_height"
-            android:layout_height="@dimen/icon_width"
-            android:src="@drawable/ic_icon_apple"
-            app:layout_constraintLeft_toLeftOf="@id/connect_to_apple_button"
-            android:layout_marginLeft="@dimen/icon_margin_edge"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            />
-
-        <TextView
-            android:id="@+id/connect_to_apple"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="SIGN IN WITH APPPLE"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            ></TextView>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/permission_message"
-        app:layout_constraintTop_toBottomOf="@+id/connect_to_apple_frame_layout"
-        android:layout_marginTop="5dp"
-        android:text="@string/permission_message"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:textSize="10dp"
-        ></TextView>
-
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/or_local_account_big_tech_account_layout"
-        app:layout_constraintTop_toBottomOf="@+id/permission_message"
-        android:layout_marginTop="30dp"
-        >
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="@android:color/darker_gray"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            ></View>
-
-        <View
-            android:layout_width="30dp"
-            android:layout_height="2dp"
-            android:background="@android:color/white"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            ></View>
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/or_local_account_big_tech_account"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:text="OR"
-            ></TextView>
-
-        ></androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-
-
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/log_in_layout"
-        app:layout_constraintTop_toBottomOf="@id/or_local_account_big_tech_account_layout"
-        android:layout_marginTop="40dp"
-
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginLeft="@dimen/log_in_edge_margin"
-        android:layout_marginRight="@dimen/log_in_edge_margin"
+        android:layout_height="match_parent"
+        android:id="@+id/activity_login_layout"
         >
 
 
-        <EditText
+        <View
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/username"
-            android:hint="Email"
-            app:layout_constraintTop_toTopOf="parent"
-
-            ></EditText>
-
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/password"
-            app:layout_constraintTop_toBottomOf="@+id/username"
-            android:layout_marginTop="10dp"
-            android:hint="Password"
-
-            android:inputType="textPassword"
-
-            ></EditText>
+            android:layout_height="@dimen/toolbar_height"
+            android:id="@+id/toolbar"
+            android:visibility="invisible"
+            android:background="@color/toolbar_color"
+            ></View>
 
         <ImageView
-            android:layout_width="@dimen/show_password_icon_width"
-            android:layout_height="@dimen/show_password_icon_height"
-            android:id="@+id/show_password"
-            app:layout_constraintTop_toTopOf="@id/password"
-            app:layout_constraintBottom_toBottomOf="@id/password"
-            app:layout_constraintRight_toRightOf="@id/password"
-            android:src="@drawable/eye"
-            android:layout_marginRight="@dimen/edge_margin"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/toolbar_height"
+            android:id="@+id/back_button"
+            android:src="@drawable/ic_back_arrow_custom_tab"
+            android:layout_marginLeft="@dimen/edge_margin"
+            android:visibility="gone"
+            app:layout_constraintLeft_toLeftOf="@+id/toolbar"
             ></ImageView>
 
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/signin"
+            android:text="Sign in v2"
+            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            android:layout_marginTop="10dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:textSize="25dp"
+            android:textColor="@color/black"
+            ></TextView>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/connect_to_facebook_frame_layout"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/log_in_button_height"
-            android:id="@+id/login_button"
-            android:background="@color/dark_green"
-            app:layout_constraintTop_toBottomOf="@+id/password"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/signin">
+
+            <TextView
+                android:id="@+id/connect_to_facebook_button"
+                android:layout_width="@dimen/button_width"
+                android:layout_height="@dimen/button_height"
+                android:background="@color/light_gray"
+                android:foreground="@android:color/transparent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_gravity="center"
+                app:layout_constraintRight_toRightOf="parent">
+            </TextView>
+
+            <ImageView
+                android:layout_width="@dimen/icon_height"
+                android:layout_height="@dimen/icon_width"
+                android:src="@drawable/ic_icon_facebook"
+                app:layout_constraintLeft_toLeftOf="@id/connect_to_facebook_button"
+                android:layout_marginLeft="@dimen/icon_margin_edge"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                />
+
+            <TextView
+                android:id="@+id/connect_to_facebook"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="CONNECT WITH FACEBOOK"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:textColor="@color/connect_with_facebook_text_color"
+                android:textStyle="bold"
+                ></TextView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/connect_to_google_frame_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/button_gap"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent">
-        </TextView>
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/connect_to_facebook_frame_layout">
 
-        <TextView
-            android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/connect_to_google_button"
+                android:layout_width="@dimen/button_width"
+                android:layout_height="@dimen/button_height"
+                android:background="@color/light_gray"
+                android:foreground="@android:color/transparent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_gravity="center"
+                app:layout_constraintRight_toRightOf="parent">
+            </TextView>
+
+            <ImageView
+                android:layout_width="@dimen/icon_height"
+                android:layout_height="@dimen/icon_width"
+                android:src="@drawable/ic_icon_goole"
+                app:layout_constraintLeft_toLeftOf="@id/connect_to_google_button"
+                android:layout_marginLeft="@dimen/icon_margin_edge"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                />
+
+            <TextView
+                android:id="@+id/connect_to_goole"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="CONNECT WITH GOOGLE"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:textColor="@color/connect_with_google_text_color"
+                android:textStyle="bold"
+                ></TextView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/connect_to_apple_frame_layout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="SIGN IN"
+            android:layout_marginTop="@dimen/button_gap"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/login_button"
-            app:layout_constraintBottom_toBottomOf="@id/login_button"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            ></TextView>
+            app:layout_constraintTop_toBottomOf="@id/connect_to_google_frame_layout">
+
+            <TextView
+                android:id="@+id/connect_to_apple_button"
+                android:layout_width="@dimen/button_width"
+                android:layout_height="@dimen/button_height"
+                android:background="@color/light_gray"
+                android:foreground="@android:color/transparent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_gravity="center"
+                app:layout_constraintRight_toRightOf="parent">
+            </TextView>
+
+            <ImageView
+                android:layout_width="@dimen/icon_height"
+                android:layout_height="@dimen/icon_width"
+                android:src="@drawable/ic_icon_apple"
+                app:layout_constraintLeft_toLeftOf="@id/connect_to_apple_button"
+                android:layout_marginLeft="@dimen/icon_margin_edge"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                />
+
+            <TextView
+                android:id="@+id/connect_to_apple"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SIGN IN WITH APPPLE"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                ></TextView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/or"
-            android:text="or"
-            app:layout_constraintTop_toBottomOf="@id/login_button"
+            android:id="@+id/permission_message"
+            app:layout_constraintTop_toBottomOf="@+id/connect_to_apple_frame_layout"
+            android:layout_marginTop="5dp"
+            android:text="@string/permission_message"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            android:visibility="gone"
+            android:textSize="10dp"
             ></TextView>
 
-        <Button
-            android:layout_width="wrap_content"
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/signup"
-            android:text="SIGN UP"
-            app:layout_constraintTop_toBottomOf="@id/or"
+            android:id="@+id/or_local_account_big_tech_account_layout"
+            app:layout_constraintTop_toBottomOf="@+id/permission_message"
+            android:layout_marginTop="30dp"
+            >
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@android:color/darker_gray"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                ></View>
+
+            <View
+                android:layout_width="30dp"
+                android:layout_height="2dp"
+                android:background="@color/material_grey_50"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                ></View>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/or_local_account_big_tech_account"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:text="OR"
+                ></TextView>
+
+            ></androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/log_in_layout"
+            app:layout_constraintTop_toBottomOf="@id/or_local_account_big_tech_account_layout"
+            android:layout_marginTop="40dp"
+
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            android:visibility="gone"
-            ></Button>
+            android:layout_marginLeft="@dimen/log_in_edge_margin"
+            android:layout_marginRight="@dimen/log_in_edge_margin"
+            >
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/sign_up_small"
-            android:text="Sign up"
-            app:layout_constraintTop_toBottomOf="@id/login_button"
-            android:textColor="@color/dark_green"
-            app:layout_constraintLeft_toLeftOf="@+id/login_button"
-            android:layout_marginTop="20dp"
-            ></TextView>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/forgot_password_small"
-            android:text="Forgot password?"
-            app:layout_constraintTop_toBottomOf="@id/login_button"
-            android:textColor="@color/dark_green"
-            app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginTop="20dp"
-            ></TextView>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/username"
+                android:hint="Email"
+                app:layout_constraintTop_toTopOf="parent"
+
+                ></EditText>
+
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/password"
+                app:layout_constraintTop_toBottomOf="@+id/username"
+                android:layout_marginTop="10dp"
+                android:hint="Password"
+
+                android:inputType="textPassword"
+
+                ></EditText>
+
+            <ImageView
+                android:layout_width="@dimen/show_password_icon_width"
+                android:layout_height="@dimen/show_password_icon_height"
+                android:id="@+id/show_password"
+                app:layout_constraintTop_toTopOf="@id/password"
+                app:layout_constraintBottom_toBottomOf="@id/password"
+                app:layout_constraintRight_toRightOf="@id/password"
+                android:src="@drawable/eye"
+                android:layout_marginRight="@dimen/edge_margin"
+                ></ImageView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/log_in_button_height"
+                android:id="@+id/login_button"
+                android:background="@color/dark_green"
+                app:layout_constraintTop_toBottomOf="@+id/password"
+                android:layout_marginTop="@dimen/button_gap"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent">
+            </TextView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SIGN IN"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@id/login_button"
+                app:layout_constraintBottom_toBottomOf="@id/login_button"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                ></TextView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/or"
+                android:text="or"
+                app:layout_constraintTop_toBottomOf="@id/login_button"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:visibility="gone"
+                ></TextView>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/signup"
+                android:text="SIGN UP"
+                app:layout_constraintTop_toBottomOf="@id/or"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:visibility="gone"
+                ></Button>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/sign_up_small"
+                android:text="Sign up"
+                app:layout_constraintTop_toBottomOf="@id/login_button"
+                android:textColor="@color/dark_green"
+                app:layout_constraintLeft_toLeftOf="@+id/login_button"
+                android:layout_marginTop="20dp"
+                ></TextView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/forgot_password_small"
+                android:text="Forgot password?"
+                app:layout_constraintTop_toBottomOf="@id/login_button"
+                android:textColor="@color/dark_green"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginTop="20dp"
+                ></TextView>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
+
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="@dimen/dialog_width"
-        android:layout_height="@dimen/dialog_height"
-        android:id="@+id/loading_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/fragment_dialog"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"

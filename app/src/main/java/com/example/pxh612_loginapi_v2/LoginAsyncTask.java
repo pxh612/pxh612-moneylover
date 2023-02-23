@@ -12,9 +12,10 @@ public class LoginAsyncTask extends AsyncTask<Void, Void, LoginActivity.LOGIN_ST
     private String email;
     private String password;
 
-    public LoginAsyncTask(String email, String password){
+    public LoginAsyncTask(LoginAsyncTaskListener listener, String email, String password){
         this.email = email;
         this.password = password;
+        this.listener = listener;
     }
 
     @Override

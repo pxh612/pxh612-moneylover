@@ -6,10 +6,14 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -33,12 +37,21 @@ public class LoginActivity extends AppCompatActivity implements LoginAsyncTaskLi
         NO_CONNECTION
     }
 
+    // Dialog message
+    public static final String INVALID_DIALOG_MESSAGE = "" +
+            "Invalid email/password combination." + "\n" +
+            "Please try again.";
+    public static final String NO_CONNECTION_DIALOG_MESSAGE = "";
+
     // Class
     LoginViewModel loginViewModel = new LoginViewModel();
     MyDialogFragment myDialogFragment = new MyDialogFragment();
 
+    // Fragment
+    FragmentTransaction fragmentTransaction;
 
     // XML
+
     EditText usernameEditText;
     EditText passwordEditText;
     TextView loginButton;
@@ -46,6 +59,7 @@ public class LoginActivity extends AppCompatActivity implements LoginAsyncTaskLi
     ImageView showPassword;
     Button signupButton;
     ProgressBar progressBar;
+    ConstraintLayout activityLoginLayout;
     ConstraintLayout loadingLayout;
 
     // Data
@@ -62,13 +76,6 @@ public class LoginActivity extends AppCompatActivity implements LoginAsyncTaskLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        // Fragment
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-        fragmentTransaction.add(R.id.loading_layout, myDialogFragment);
-        fragmentTransaction.commit();
-
         // XML: attach
         usernameEditText = findViewById(R.id.username);
         passwordEditText = findViewById(R.id.password);
@@ -77,12 +84,27 @@ public class LoginActivity extends AppCompatActivity implements LoginAsyncTaskLi
         connectWithGoogleButton = findViewById(R.id.connect_to_google_button);
         showPassword = findViewById(R.id.show_password);
 //        progressBar = findViewById(R.id.progressbar_cyclic);
-        loadingLayout = findViewById(R.id.loading_layout);
+        loadingLayout = findViewById(R.id.fragment_dialog);
+        activityLoginLayout = findViewById(R.id.activity_login_layout);
+
+
+        // Fragment
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentTransaction = fragmentManager.beginTransaction();
+
+        fragmentTransaction.add(R.id.fragment_dialog, myDialogFragment);
+        fragmentTransaction.hide(myDialogFragment);
+        fragmentTransaction.commit();
+
 
         // Intialize XML
         usernameEditText.setText(usernamePretype);
         passwordEditText.setText(passwordPretype);
-        loadingLayout.setVisibility(View.GONE);
+//        activityLoginLayout.setClickable(false);
+//        myDialogFragment.hideAll();
+//        loadingLayout.setVisibility(View.VISIBLE);
+//        loadingLayout.setVisibility(View.GONE);
+//        myDialogFragment.hideAll();
 
         // Button click
         onCreateButtonClick();
@@ -92,19 +114,16 @@ public class LoginActivity extends AppCompatActivity implements LoginAsyncTaskLi
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO
 
-//                fetchUserInput();
-//                loginViewModel.gainAccessToServer(username, password);
+                fetchUserInput();
+                loginViewModel.gainAccessToServer(LoginActivity.this, username, password);
+
+                hideInputKeyboard();
+                showMyDialogFragment();
                 myDialogFragment.showLoadingDialog();
-////
-//
-//                if(loginViewModel.gainAccessSuccessfully(username, password)){
-//                    startMainActivity();
-//                }
-//                else {
-//                    notifyLoginError();
-//                }
+
+//                loadingLayout.setVisibility(View.VISIBLE);
+
             }
         });
         signupButton.setOnClickListener(new View.OnClickListener() {
@@ -130,24 +149,49 @@ public class LoginActivity extends AppCompatActivity implements LoginAsyncTaskLi
         });
     }
 
+    private void showMyDialogFragment() {
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.show(myDialogFragment).commit();
+        Log.d("__ pass", "LoginActivity > showMyDialogFragment");
+
+        activityLoginLayout.setClickable(false);
+//        fragmentTransaction.commit();
+//        myDialogFragment.showLoadingDialog();
+    }
+    private void hideMyDialogFragment() {
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.hide(myDialogFragment).commit();
+
+        activityLoginLayout.setClickable(false);
+    }
+
+
     @Override
     public void onLoginAsyncTaskPostExecute(LOGIN_STATUS result) {
+        Log.d("__ pass", "LoginActivity > onLoginAsyncTaskPostExecute");
         if(result == LOGIN_STATUS.SUCCESSFUL){
-            myDialogFragment.hideLoadingDialog();
+//            myDialogFragment.hideAll();
+            hideMyDialogFragment();
+            startMainActivity();
         }
         else if(result == LOGIN_STATUS.INVALID){
-            myDialogFragment.notifyLoginInvalid();
+//            myDialogFragment.notifyLoginInvalid();
+            showMyDialogFragment();
+            myDialogFragment.notifySimple(INVALID_DIALOG_MESSAGE);
+            Log.d("__ pass", "LoginActivity > onLoginAsyncTaskPostExecute :  else if(result == LOGIN_STATUS.INVALID){ ");
+
         }
         else if(result == LOGIN_STATUS.NO_CONNECTION){
-            myDialogFragment.notifyNoConnection();
+//            myDialogFragment.notifyNoConnection();
+            myDialogFragment.notifySimple(NO_CONNECTION_DIALOG_MESSAGE);
         }
     }
 
-    private void showLoadingDialog() {
-        //TODO: darken background, have to implement DialogFragment
-        //progressBar.setVisibility(View.VISIBLE);
-        loadingLayout.setVisibility(View.VISIBLE);
-    }
+
+//    private void showLoadingDialog() {
+//        //progressBar.setVisibility(View.VISIBLE);
+//        loadingLayout.setVisibility(View.VISIBLE);
+//    }
 
 
     private void toggleShowPassword() {
@@ -185,5 +229,29 @@ public class LoginActivity extends AppCompatActivity implements LoginAsyncTaskLi
 
     @Override
     public void onBackPressed() {
+//        hideInputKeyboard();
+        hideMyDialogFragment();
     }
+
+    private void hideInputKeyboard() {
+        // Get a reference to the input manager
+        InputMethodManager inputManager = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
+
+        // Check if the keyboard is currently visible
+        View view = this.getCurrentFocus();
+        if (view != null) {
+            inputManager.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+    }
+
+//    public boolean onInterceptTouchEvent(MotionEvent ev) {
+//        if(isPreviewMode())
+//        {
+//            //No child is clickable in preview mode.
+//            return true;
+//        }
+//
+//        //All children are clickable otherwise
+//        return false;
+//    }
 }
