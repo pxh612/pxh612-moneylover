@@ -1,6 +1,8 @@
 package com.example.pxh612_loginapi_v2.fragment;
 
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,7 +11,9 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.DialogFragment;
 
@@ -27,6 +31,9 @@ public class MyDialogFragment extends DialogFragment {
 
     // Data
     private String message;
+    private String positiveButton;
+    private LoginActivity.LOGIN_STATUS status;
+
 
     // XML
     ConstraintLayout constraintLayout;
@@ -35,6 +42,15 @@ public class MyDialogFragment extends DialogFragment {
     ProgressBar progressBar;
     TextView messageTextView;
     TextView closeButton;
+
+    // enum
+
+    public MyDialogFragment(LoginActivity.LOGIN_STATUS status, Bundle bundle) {
+        this.message = bundle.getString("message");
+        this.positiveButton = bundle.getString("positive_button");
+//        this.message = message;
+        this.status = status;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -64,6 +80,7 @@ public class MyDialogFragment extends DialogFragment {
 
         // init XML
 //        message.setText();
+//        setArguments();
 
 
         // CRASHED
@@ -88,7 +105,7 @@ public class MyDialogFragment extends DialogFragment {
 
 
         if(state == STATE.LOADING){
-            messageTextView.setText("Loading...");
+//            messageTextView.setText("Loading...");
             progressBar.setVisibility(View.VISIBLE);
         }
         else {
@@ -122,7 +139,8 @@ public class MyDialogFragment extends DialogFragment {
 //    }
 
     public void showLoadingDialog() {
-        Log.d("__ pass", "MyDialogFragment > showLoadingDialog");
+//        Log.d("__ pass", "MyDialogFragment > showLoadingDialog");
+        this.message = "Loading...";
         showEssentials(STATE.LOADING);
 //        hideAll();
 //        showEssentials();
@@ -153,7 +171,7 @@ public class MyDialogFragment extends DialogFragment {
 //        this.messageTextView
         this.message = message;
         showEssentials(STATE.SIMPLE_NOTIFY);
-        Log.d("__ pass", "MyDialogFragment > notifySimple");
+//        Log.d("__ pass", "MyDialogFragment > notifySimple");
 
 //        progressBar.setVisibility(View.GONE);
 //        closeButton.setVisibility(View.VISIBLE);
@@ -177,4 +195,29 @@ public class MyDialogFragment extends DialogFragment {
 //        }
 //    }
 
+    @NonNull
+    @Override
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        // Create a new AlertDialog
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder
+                .setMessage(message);
+
+        if(positiveButton != null)
+                builder.setPositiveButton(positiveButton, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        // Handle OK button click
+                    }
+                });
+//                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialogInterface, int i) {
+//                        // Handle Cancel button click
+//                    }
+//                });
+
+        // Return the created dialog
+        return builder.create();
+    }
 }

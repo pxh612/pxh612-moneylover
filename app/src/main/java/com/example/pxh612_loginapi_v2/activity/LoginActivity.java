@@ -2,7 +2,6 @@ package com.example.pxh612_loginapi_v2.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
@@ -11,7 +10,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -38,14 +36,15 @@ public class LoginActivity extends AppCompatActivity implements LoginAsyncTaskLi
     }
 
     // Dialog message
-    public static final String INVALID_DIALOG_MESSAGE = "" +
+    private final String INVALID_DIALOG_MESSAGE = "" +
             "Invalid email/password combination." + "\n" +
             "Please try again.";
+    private final String INVALID_DIALOG_POSITIVE_BUTTON = "CLOSE";
     public static final String NO_CONNECTION_DIALOG_MESSAGE = "";
 
     // Class
     LoginViewModel loginViewModel = new LoginViewModel();
-    MyDialogFragment myDialogFragment = new MyDialogFragment();
+//    MyDialogFragment myDialogFragment = new MyDialogFragment();
 
     // Fragment
     FragmentTransaction fragmentTransaction;
@@ -89,12 +88,11 @@ public class LoginActivity extends AppCompatActivity implements LoginAsyncTaskLi
 
 
         // Fragment
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentTransaction = fragmentManager.beginTransaction();
-
-        fragmentTransaction.add(R.id.fragment_dialog, myDialogFragment);
-        fragmentTransaction.hide(myDialogFragment);
-        fragmentTransaction.commit();
+//        FragmentManager fragmentManager = getSupportFragmentManager();
+//        fragmentTransaction = fragmentManager.beginTransaction();
+//        fragmentTransaction.add(R.id.fragment_dialog, myDialogFragment);
+//        fragmentTransaction.hide(myDialogFragment);
+//        fragmentTransaction.commit();
 
 
         // Intialize XML
@@ -119,9 +117,15 @@ public class LoginActivity extends AppCompatActivity implements LoginAsyncTaskLi
                 loginViewModel.gainAccessToServer(LoginActivity.this, username, password);
 
                 hideInputKeyboard();
-                showMyDialogFragment();
-                myDialogFragment.showLoadingDialog();
+                showLoadingScreen();
 
+//                showMyDialogFragment();
+//                myDialogFragment.showLoadingDialog();
+//                Bundle bundle = new Bundle();
+//                bundle.putString("message", INVALID_DIALOG_MESSAGE);
+//                bundle.putString("positive_button", INVALID_DIALOG_POSITIVE_BUTTON);
+//                MyDialogFragment myDialogFragment = new MyDialogFragment(LOGIN_STATUS.INVALID, bundle);
+//                myDialogFragment.show(getSupportFragmentManager(), "dialog");
 //                loadingLayout.setVisibility(View.VISIBLE);
 
             }
@@ -149,21 +153,33 @@ public class LoginActivity extends AppCompatActivity implements LoginAsyncTaskLi
         });
     }
 
-    private void showMyDialogFragment() {
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.show(myDialogFragment).commit();
-        Log.d("__ pass", "LoginActivity > showMyDialogFragment");
-
-        activityLoginLayout.setClickable(false);
-//        fragmentTransaction.commit();
-//        myDialogFragment.showLoadingDialog();
+    private void showLoadingScreen() {
+        //TODO
     }
-    private void hideMyDialogFragment() {
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.hide(myDialogFragment).commit();
 
-        activityLoginLayout.setClickable(false);
+    private void notifyInvalidLogin(){
+        Bundle bundle = new Bundle();
+        bundle.putString("message", INVALID_DIALOG_MESSAGE);
+        bundle.putString("positive_button", INVALID_DIALOG_POSITIVE_BUTTON);
+        MyDialogFragment myDialogFragment = new MyDialogFragment(LOGIN_STATUS.INVALID, bundle);
+        myDialogFragment.show(getSupportFragmentManager(), "dialog");
     }
+//
+//    private void showMyDialogFragment() {
+//        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+//        fragmentTransaction.show(myDialogFragment).commit();
+//        Log.d("__ pass", "LoginActivity > showMyDialogFragment");
+//
+//        activityLoginLayout.setClickable(false);
+////        fragmentTransaction.commit();
+////        myDialogFragment.showLoadingDialog();
+//    }
+//    private void hideMyDialogFragment() {
+//        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+//        fragmentTransaction.hide(myDialogFragment).commit();
+//
+//        activityLoginLayout.setClickable(false);
+//    }
 
 
     @Override
@@ -171,19 +187,19 @@ public class LoginActivity extends AppCompatActivity implements LoginAsyncTaskLi
         Log.d("__ pass", "LoginActivity > onLoginAsyncTaskPostExecute");
         if(result == LOGIN_STATUS.SUCCESSFUL){
 //            myDialogFragment.hideAll();
-            hideMyDialogFragment();
+//            hideMyDialogFragment();
             startMainActivity();
         }
         else if(result == LOGIN_STATUS.INVALID){
 //            myDialogFragment.notifyLoginInvalid();
-            showMyDialogFragment();
-            myDialogFragment.notifySimple(INVALID_DIALOG_MESSAGE);
-            Log.d("__ pass", "LoginActivity > onLoginAsyncTaskPostExecute :  else if(result == LOGIN_STATUS.INVALID){ ");
-
+//            showMyDialogFragment();
+//            myDialogFragment.notifySimple(INVALID_DIALOG_MESSAGE);
+//            Log.d("__ pass", "LoginActivity > onLoginAsyncTaskPostExecute :  else if(result == LOGIN_STATUS.INVALID){ ");
+            notifyInvalidLogin();
         }
         else if(result == LOGIN_STATUS.NO_CONNECTION){
 //            myDialogFragment.notifyNoConnection();
-            myDialogFragment.notifySimple(NO_CONNECTION_DIALOG_MESSAGE);
+//            myDialogFragment.notifySimple(NO_CONNECTION_DIALOG_MESSAGE);
         }
     }
 
@@ -230,7 +246,7 @@ public class LoginActivity extends AppCompatActivity implements LoginAsyncTaskLi
     @Override
     public void onBackPressed() {
 //        hideInputKeyboard();
-        hideMyDialogFragment();
+//        hideMyDialogFragment();
     }
 
     private void hideInputKeyboard() {
