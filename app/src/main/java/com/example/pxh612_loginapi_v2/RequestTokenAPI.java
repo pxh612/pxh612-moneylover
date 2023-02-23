@@ -39,8 +39,8 @@ public class RequestTokenAPI {
 
             putRequestHeader(conn, username, password);
 
-            conn.setReadTimeout(10000);
-            conn.setConnectTimeout(15000);
+            conn.setReadTimeout(1000);
+            conn.setConnectTimeout(1500);
 
             conn.connect();
             Log.d("pass", "LoginAPI > fetch > conn.connect()");

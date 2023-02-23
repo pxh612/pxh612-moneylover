@@ -92,6 +92,7 @@ public class MyDialogFragment extends DialogFragment {
         // init XML
 //        message.setText();
 //        setArguments();
+        progressBar.setVisibility(View.VISIBLE);
 
 
         // CRASHED

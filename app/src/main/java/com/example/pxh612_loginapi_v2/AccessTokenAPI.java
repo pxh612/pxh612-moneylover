@@ -43,9 +43,12 @@ public class AccessTokenAPI {
             putRequestHeader(conn);
             putRequestBody(conn, email, password);
 
+//
+//            conn.setReadTimeout(10000);
+//            conn.setConnectTimeout(15000);
 
-            conn.setReadTimeout(10000);
-            conn.setConnectTimeout(15000);
+            conn.setReadTimeout(1000);
+            conn.setConnectTimeout(1500);
 
             conn.connect();
             Log.d("pass", "LoginAPI > fetch > conn.connect()");
@@ -89,7 +92,7 @@ public class AccessTokenAPI {
                 e.printStackTrace();
             }
         }
-        return LoginActivity.LOGIN_STATUS.INVALID;
+        return LoginActivity.LOGIN_STATUS.NO_CONNECTION;
     }
 
     private static void putRequestBody(HttpURLConnection conn, String email, String password) {

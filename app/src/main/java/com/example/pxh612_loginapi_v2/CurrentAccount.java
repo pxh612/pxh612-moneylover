@@ -22,7 +22,8 @@ public class CurrentAccount {
     }
 
     public static String getDisplayName() {
-        return account.displayName;
+//        return account.displayName;
+        return account.username;
     }
 
     public static String getUsername() {

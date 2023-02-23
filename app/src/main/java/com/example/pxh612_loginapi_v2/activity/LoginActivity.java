@@ -42,7 +42,7 @@ public class LoginActivity extends AppCompatActivity implements LoginAsyncTaskLi
             "Invalid email/password combination." + "\n" +
             "Please try again.";
     private final String INVALID_DIALOG_POSITIVE_BUTTON = "CLOSE";
-    public static final String NO_CONNECTION_DIALOG_MESSAGE = "";
+//    public static final String NO_CONNECTION_DIALOG_MESSAGE = "";
 
     // Class
     LoginViewModel loginViewModel = new LoginViewModel();
@@ -178,7 +178,7 @@ public class LoginActivity extends AppCompatActivity implements LoginAsyncTaskLi
             state = MyDialogFragment.STATE.SIMPLE_NOTIFY;
         }
         else if(status == LOGIN_STATUS.NO_CONNECTION){
-            bundle.putString("message", NO_CONNECTION_DIALOG_MESSAGE);
+            bundle.putString("message", Strings.NO_CONNECTION_DIALOG_MESSAGE);
             bundle.putString("positive_button", Strings.CLOSE_DIALOG_MESSAGE);
 
             state = MyDialogFragment.STATE.SIMPLE_NOTIFY;
