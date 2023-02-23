@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.example.pxh612_loginapi_v2.LoginAsyncTaskListener;
 import com.example.pxh612_loginapi_v2.R;
 import com.example.pxh612_loginapi_v2.database.AccountExample;
+import com.example.pxh612_loginapi_v2.database.Strings;
 import com.example.pxh612_loginapi_v2.fragment.MyDialogFragment;
 import com.example.pxh612_loginapi_v2.viewmodel.LoginViewModel;
 
@@ -32,7 +33,8 @@ public class LoginActivity extends AppCompatActivity implements LoginAsyncTaskLi
     public enum LOGIN_STATUS{
         SUCCESSFUL,
         INVALID,
-        NO_CONNECTION
+        NO_CONNECTION,
+        LOADING
     }
 
     // Dialog message
@@ -45,6 +47,7 @@ public class LoginActivity extends AppCompatActivity implements LoginAsyncTaskLi
     // Class
     LoginViewModel loginViewModel = new LoginViewModel();
 //    MyDialogFragment myDialogFragment = new MyDialogFragment();
+    MyDialogFragment myDialogFragment;
 
     // Fragment
     FragmentTransaction fragmentTransaction;
@@ -117,7 +120,8 @@ public class LoginActivity extends AppCompatActivity implements LoginAsyncTaskLi
                 loginViewModel.gainAccessToServer(LoginActivity.this, username, password);
 
                 hideInputKeyboard();
-                showLoadingScreen();
+                showDialogFragment(LOGIN_STATUS.LOADING);
+//                showLoadingScreen();
 
 //                showMyDialogFragment();
 //                myDialogFragment.showLoadingDialog();
@@ -153,15 +157,40 @@ public class LoginActivity extends AppCompatActivity implements LoginAsyncTaskLi
         });
     }
 
-    private void showLoadingScreen() {
-        //TODO
-    }
+//    private void showLoadingScreen() {
+//    }
 
-    private void notifyInvalidLogin(){
+//    private void showDialogFragment(){
+//        Bundle bundle = new Bundle();
+//        bundle.putString("message", INVALID_DIALOG_MESSAGE);
+//        bundle.putString("positive_button", INVALID_DIALOG_POSITIVE_BUTTON);
+//        MyDialogFragment myDialogFragment = new MyDialogFragment(LOGIN_STATUS.INVALID, bundle);
+//        myDialogFragment.show(getSupportFragmentManager(), "dialog");
+//    }
+
+    private void showDialogFragment(LOGIN_STATUS status){
         Bundle bundle = new Bundle();
-        bundle.putString("message", INVALID_DIALOG_MESSAGE);
-        bundle.putString("positive_button", INVALID_DIALOG_POSITIVE_BUTTON);
-        MyDialogFragment myDialogFragment = new MyDialogFragment(LOGIN_STATUS.INVALID, bundle);
+        MyDialogFragment.STATE state = null;
+        if(status == LOGIN_STATUS.INVALID) {
+            bundle.putString("message", INVALID_DIALOG_MESSAGE);
+            bundle.putString("positive_button", Strings.CLOSE_DIALOG_MESSAGE);
+
+            state = MyDialogFragment.STATE.SIMPLE_NOTIFY;
+        }
+        else if(status == LOGIN_STATUS.NO_CONNECTION){
+            bundle.putString("message", NO_CONNECTION_DIALOG_MESSAGE);
+            bundle.putString("positive_button", Strings.CLOSE_DIALOG_MESSAGE);
+
+            state = MyDialogFragment.STATE.SIMPLE_NOTIFY;
+        }
+        else if(status == LOGIN_STATUS.LOADING){
+//            bundle.putString("message", INVALID_DIALOG_MESSAGE);
+//            bundle.putString("positive_button", INVALID_DIALOG_POSITIVE_BUTTON);
+
+            state = MyDialogFragment.STATE.LOADING;
+        }
+
+        myDialogFragment = new MyDialogFragment(state, bundle);
         myDialogFragment.show(getSupportFragmentManager(), "dialog");
     }
 //
@@ -184,7 +213,8 @@ public class LoginActivity extends AppCompatActivity implements LoginAsyncTaskLi
 
     @Override
     public void onLoginAsyncTaskPostExecute(LOGIN_STATUS result) {
-        Log.d("__ pass", "LoginActivity > onLoginAsyncTaskPostExecute");
+//        Log.d("__ pass", "LoginActivity > onLoginAsyncTaskPostExecute");
+        myDialogFragment.dismiss();
         if(result == LOGIN_STATUS.SUCCESSFUL){
 //            myDialogFragment.hideAll();
 //            hideMyDialogFragment();
@@ -195,11 +225,12 @@ public class LoginActivity extends AppCompatActivity implements LoginAsyncTaskLi
 //            showMyDialogFragment();
 //            myDialogFragment.notifySimple(INVALID_DIALOG_MESSAGE);
 //            Log.d("__ pass", "LoginActivity > onLoginAsyncTaskPostExecute :  else if(result == LOGIN_STATUS.INVALID){ ");
-            notifyInvalidLogin();
+            showDialogFragment(result);
         }
         else if(result == LOGIN_STATUS.NO_CONNECTION){
 //            myDialogFragment.notifyNoConnection();
 //            myDialogFragment.notifySimple(NO_CONNECTION_DIALOG_MESSAGE);
+            showDialogFragment(result);
         }
     }
 

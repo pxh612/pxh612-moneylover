@@ -19,15 +19,17 @@ import androidx.fragment.app.DialogFragment;
 
 import com.example.pxh612_loginapi_v2.R;
 import com.example.pxh612_loginapi_v2.activity.LoginActivity;
+import com.example.pxh612_loginapi_v2.database.Strings;
 
 public class MyDialogFragment extends DialogFragment {
 
 
 
-    enum STATE{
+    public enum STATE{
         LOADING,
         SIMPLE_NOTIFY
     }
+    STATE state;
 
     // Data
     private String message;
@@ -44,12 +46,21 @@ public class MyDialogFragment extends DialogFragment {
     TextView closeButton;
 
     // enum
+//
+//    public MyDialogFragment(LoginActivity.LOGIN_STATUS status, Bundle bundle) {
+//        this.message = bundle.getString("message");
+//        this.positiveButton = bundle.getString("positive_button");
+////        this.message = message;
+//        this.status = status;
+//    }
 
-    public MyDialogFragment(LoginActivity.LOGIN_STATUS status, Bundle bundle) {
+    public MyDialogFragment(STATE state, Bundle bundle){
         this.message = bundle.getString("message");
         this.positiveButton = bundle.getString("positive_button");
-//        this.message = message;
-        this.status = status;
+
+        if(state == STATE.LOADING){
+            message = Strings.LOADING_DIALOG_MESSAGE;
+        }
     }
 
     @Override
@@ -91,38 +102,38 @@ public class MyDialogFragment extends DialogFragment {
 //        getDialog().setTitle("Dialog #"); //  set DialogFragment title: crashed
     }
 
-    private void showEssentials(STATE state){
-//        hideAll();
-//        getView().setVisibility(View.GONE);
-//        constraintLayout.setVisibility(View.VISIBLE);
-//        getView().
-//        gray_background.setVisibility(View.VISIBLE);
-//        dialogBox.setVisibility(View.VISIBLE);
-//        messageTextView.setVisibility(View.VISIBLE);
-//        Log.d("__ pass", "MyDialogFragment > showEssentials() :  messageTextView.setVisibility(View.VISIBLE);");
-//        if(state == )
-        messageTextView.setText(message);
-
-
-        if(state == STATE.LOADING){
-//            messageTextView.setText("Loading...");
-            progressBar.setVisibility(View.VISIBLE);
-        }
-        else {
-            progressBar.setVisibility(View.GONE);
-        }
-
-        if(state == STATE.SIMPLE_NOTIFY){
-//            getView().setVisibility(View.GONE);
-//            getView().setVisibility(View.VISIBLE);
-//            messageTextView.setText(message);
-            closeButton.setVisibility(View.VISIBLE);
-        }
-        else{
-            closeButton.setVisibility(View.GONE);
-        }
-    }
-
+//    private void showEssentials(STATE state){
+////        hideAll();
+////        getView().setVisibility(View.GONE);
+////        constraintLayout.setVisibility(View.VISIBLE);
+////        getView().
+////        gray_background.setVisibility(View.VISIBLE);
+////        dialogBox.setVisibility(View.VISIBLE);
+////        messageTextView.setVisibility(View.VISIBLE);
+////        Log.d("__ pass", "MyDialogFragment > showEssentials() :  messageTextView.setVisibility(View.VISIBLE);");
+////        if(state == )
+//        messageTextView.setText(message);
+//
+//
+//        if(state == STATE.LOADING){
+////            messageTextView.setText("Loading...");
+//            progressBar.setVisibility(View.VISIBLE);
+//        }
+//        else {
+//            progressBar.setVisibility(View.GONE);
+//        }
+//
+//        if(state == STATE.SIMPLE_NOTIFY){
+////            getView().setVisibility(View.GONE);
+////            getView().setVisibility(View.VISIBLE);
+////            messageTextView.setText(message);
+//            closeButton.setVisibility(View.VISIBLE);
+//        }
+//        else{
+//            closeButton.setVisibility(View.GONE);
+//        }
+//    }
+//
 
 //    public void notifyNoConnection() {
 //    }
@@ -138,10 +149,10 @@ public class MyDialogFragment extends DialogFragment {
 //        getDialog().setTitle("sds");
 //    }
 
-    public void showLoadingDialog() {
-//        Log.d("__ pass", "MyDialogFragment > showLoadingDialog");
-        this.message = "Loading...";
-        showEssentials(STATE.LOADING);
+//    public void showLoadingDialog() {
+////        Log.d("__ pass", "MyDialogFragment > showLoadingDialog");
+//        this.message = "Loading...";
+//        showEssentials(STATE.LOADING);
 //        hideAll();
 //        showEssentials();
 ////        message.setVisibility(View.VISIBLE);
@@ -149,7 +160,7 @@ public class MyDialogFragment extends DialogFragment {
 //        message.setText("Loading...");
 //        getView().setVisibility(View.VISIBLE);
 //        closeButton.setVisibility(View.GONE);
-    }
+//    }
 
 //    public void hideAll() {
 //
@@ -167,16 +178,16 @@ public class MyDialogFragment extends DialogFragment {
 //
 //    }
 
-    public void notifySimple(String message) {
-//        this.messageTextView
-        this.message = message;
-        showEssentials(STATE.SIMPLE_NOTIFY);
+//    public void notifySimple(String message) {
+////        this.messageTextView
+//        this.message = message;
+//        showEssentials(STATE.SIMPLE_NOTIFY);
 //        Log.d("__ pass", "MyDialogFragment > notifySimple");
 
 //        progressBar.setVisibility(View.GONE);
 //        closeButton.setVisibility(View.VISIBLE);
 //        this.message.setText(message);
-    }
+//    }
 
 //    @Override
 //    public void onBackPressed(){
@@ -199,6 +210,16 @@ public class MyDialogFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // Create a new AlertDialog
+
+        Log.d("__ pass", "MyDialogFragment > onCreateDialog()");
+//
+//        if(state == STATE.LOADING){
+//            LayoutInflater inflater = requireActivity().getLayoutInflater();
+//            View view = inflater.inflate(R.layout.fragment_my_dialog, null);
+//            setCancelable(false);
+//            Log.d("__ pass", "MyDialogFragment > onCreateDialog() : if(state == STATE.LOADING){");
+//        }
+
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder
                 .setMessage(message);
@@ -216,6 +237,10 @@ public class MyDialogFragment extends DialogFragment {
 //                        // Handle Cancel button click
 //                    }
 //                });
+
+//        if(state == STATE.LOADING){
+////            builder.setIcon(R.dr)
+//        }
 
         // Return the created dialog
         return builder.create();
