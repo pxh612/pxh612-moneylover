@@ -12,4 +12,5 @@
     <color name="connect_with_facebook_text_color">#4B8FB7</color>
     <color name="connect_with_google_text_color">#F44336</color>
     <color name="dark_green">#4CAF50</color>
+    <color name="submit_bar">#ff0099cc</color>
 </resources>
