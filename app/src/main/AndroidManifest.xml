@@ -34,8 +34,6 @@
             android:exported="true"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             >
-
-
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -45,6 +43,15 @@
             android:theme="@style/Theme.Design.Light.NoActionBar"
 
             android:exported="true">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".activity.SignupActivity"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            >
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />

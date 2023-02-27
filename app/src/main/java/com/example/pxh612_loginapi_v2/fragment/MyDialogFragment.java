@@ -34,7 +34,7 @@ public class MyDialogFragment extends DialogFragment {
     // Data
     private String message;
     private String positiveButton;
-    private LoginActivity.LOGIN_STATUS status;
+//    private LoginActivity.LOGIN_STATUS status;
 
 
     // XML

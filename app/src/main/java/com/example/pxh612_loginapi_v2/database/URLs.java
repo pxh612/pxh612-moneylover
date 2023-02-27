@@ -5,4 +5,6 @@ public class URLs {
     public static final String dogAPI = "https://dog.ceo/api/breeds/image/random";
     public static final String TOKEN_API = "https://oauth-sandbox.moneylover.me/token";
     public static final String REQUEST_TOKEN_API = "https://oauth-sandbox.moneylover.me/request-token";
+    public static final String USER_REGISTER_API = "https://oauth-sandbox.moneylover.me/user/register";
+
 }

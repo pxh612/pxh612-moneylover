@@ -9,7 +9,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
-import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -36,6 +35,11 @@ public class LoginActivity extends AppCompatActivity implements LoginAsyncTaskLi
         NO_CONNECTION,
         LOADING
     }
+    enum BUTTON_CLICK{
+        LOGIN,
+        SIGN_UP,
+        SHOW_PASSWORD
+    }
 
     // Dialog message
     private final String INVALID_DIALOG_MESSAGE = "" +
@@ -59,7 +63,7 @@ public class LoginActivity extends AppCompatActivity implements LoginAsyncTaskLi
     TextView loginButton;
     TextView connectWithGoogleButton;
     ImageView showPassword;
-    Button signupButton;
+    TextView signupButton;
     ProgressBar progressBar;
     ConstraintLayout activityLoginLayout;
     ConstraintLayout loadingLayout;
@@ -81,12 +85,12 @@ public class LoginActivity extends AppCompatActivity implements LoginAsyncTaskLi
         // XML: attach
         usernameEditText = findViewById(R.id.username);
         passwordEditText = findViewById(R.id.password);
-        loginButton = findViewById(R.id.login_button);
-        signupButton = findViewById(R.id.signup);
+        loginButton = findViewById(R.id.signin_button);
+        signupButton = findViewById(R.id.signup_redirect);
         connectWithGoogleButton = findViewById(R.id.connect_to_google_button);
         showPassword = findViewById(R.id.show_password);
 //        progressBar = findViewById(R.id.progressbar_cyclic);
-        loadingLayout = findViewById(R.id.fragment_dialog);
+//        loadingLayout = findViewById(R.id.fragment_dialog);
         activityLoginLayout = findViewById(R.id.activity_login_layout);
 
 
@@ -115,12 +119,12 @@ public class LoginActivity extends AppCompatActivity implements LoginAsyncTaskLi
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                fetchUserInput();
-                loginViewModel.gainAccessToServer(LoginActivity.this, username, password);
-
-                hideInputKeyboard();
-                showDialogFragment(LOGIN_STATUS.LOADING);
+                onClickButton(BUTTON_CLICK.LOGIN);
+//                fetchUserInput();
+//                loginViewModel.gainAccessToServer(LoginActivity.this, username, password);
+//
+//                hideInputKeyboard();
+//                showDialogFragment(LOGIN_STATUS.LOADING);
 //                showLoadingScreen();
 
 //                showMyDialogFragment();
@@ -137,7 +141,8 @@ public class LoginActivity extends AppCompatActivity implements LoginAsyncTaskLi
         signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startSignupActivity();
+                //startSignupActivity();
+                onClickButton(BUTTON_CLICK.SIGN_UP);
             }
         });
         connectWithGoogleButton.setOnClickListener(new View.OnClickListener() {
@@ -152,9 +157,25 @@ public class LoginActivity extends AppCompatActivity implements LoginAsyncTaskLi
         showPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                toggleShowPassword();
+                //toggleShowPassword();
+                onClickButton(BUTTON_CLICK.SHOW_PASSWORD);
             }
         });
+    }
+    void onClickButton(BUTTON_CLICK button_click){
+        if(button_click == BUTTON_CLICK.LOGIN){
+            fetchUserInput();
+            loginViewModel.gainAccessToServer(LoginActivity.this, username, password);
+
+            hideInputKeyboard();
+            showDialogFragment(LOGIN_STATUS.LOADING);
+        }
+        else if(button_click == BUTTON_CLICK.SIGN_UP){
+            startSignupActivity();
+        }
+        else if(button_click == BUTTON_CLICK.SHOW_PASSWORD){
+            toggleShowPassword();
+        }
     }
 
 //    private void showLoadingScreen() {

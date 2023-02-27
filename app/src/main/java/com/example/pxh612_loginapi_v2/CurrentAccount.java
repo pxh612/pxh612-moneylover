@@ -17,10 +17,6 @@ public class CurrentAccount {
         return !isLoggedIn;
     }
 
-    public static void gainAccessSuccessfully(int userID){
-        //TODO
-    }
-
     public static String getDisplayName() {
 //        return account.displayName;
         return account.username;
