@@ -1,5 +1,6 @@
 package com.example.pxh612_loginapi_v2.repository;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -29,14 +30,25 @@ public class CurrentAcountDatabaseHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(query);
     }
 
+
+
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
         onCreate(sqLiteDatabase);
     }
 
-    public void updateAccount(String username){
-        // TODO: edit SQLite
+    public void addAccount(String username){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        // on below line we are passing all values
+        // along with its key and value pair.
+        values.put(USERNAME_COL, username);
+
+
+        db.insert(TABLE_NAME, null, values);
+        db.close();
     }
 
     public String getUsername() {
@@ -54,5 +66,16 @@ public class CurrentAcountDatabaseHelper extends SQLiteOpenHelper {
         }
         cursorCourses.close();
         return username;
+    }
+
+    public void deleteAccount() {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        // Delete all rows from the table
+        db.delete(TABLE_NAME, null, null);
+
+        // Close the database connection
+        db.close();
+
     }
 }

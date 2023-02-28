@@ -20,7 +20,8 @@ import com.example.pxh612_loginapi_v2.database.Strings;
 import com.example.pxh612_loginapi_v2.fragment.MyDialogFragment;
 import com.example.pxh612_loginapi_v2.viewmodel.SignupViewModel;
 
-public class SignupActivity extends AppCompatActivity {
+public class SignupActivity extends AppCompatActivity implements MyDialogFragment.MyDialogFragmentListener {
+
 
 
     enum SIGNUP_STATUS{
@@ -154,4 +155,10 @@ public class SignupActivity extends AppCompatActivity {
             passwordEditText.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
         }
     }
+
+    @Override
+    public void onDialogFragmentButtonClick(MyDialogFragment.BUTTON button) {
+
+    }
+
 }

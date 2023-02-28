@@ -1,7 +1,7 @@
 package com.example.pxh612_loginapi_v2;
 
 public class Account {
-    String username;
+    public String username;
     String displayName;
     String password;
     int userID;

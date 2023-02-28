@@ -20,7 +20,6 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.DialogFragment;
 
 import com.example.pxh612_loginapi_v2.R;
-import com.example.pxh612_loginapi_v2.activity.LoginActivity;
 import com.example.pxh612_loginapi_v2.database.Strings;
 
 public class MyDialogFragment extends DialogFragment {
@@ -36,6 +35,10 @@ public class MyDialogFragment extends DialogFragment {
         LOADING,
         SIMPLE_NOTIFY
     }
+    public enum BUTTON{
+        NEGATIVE_BUTTON,
+        POSITIVE_BUTTON
+    }
     STATE state;
 
     // Data
@@ -46,7 +49,7 @@ public class MyDialogFragment extends DialogFragment {
     // Listener
     MyDialogFragmentListener listener;
     public interface MyDialogFragmentListener{
-        void onPositiveButtonClick();
+        void onDialogFragmentButtonClick(BUTTON button);
     }
     @Override
     public void onAttach(@NonNull Context context) {
@@ -146,7 +149,7 @@ public class MyDialogFragment extends DialogFragment {
                 builder.setPositiveButton(positiveButton, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        listener.onPositiveButtonClick();
+                        listener.onDialogFragmentButtonClick(BUTTON.POSITIVE_BUTTON);
                     }
                 });
 
@@ -154,7 +157,7 @@ public class MyDialogFragment extends DialogFragment {
                 builder.setNegativeButton(negativeButton, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        // Handle Cancel button click
+                        listener.onDialogFragmentButtonClick(BUTTON.NEGATIVE_BUTTON);
                     }
                 });
 

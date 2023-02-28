@@ -1,10 +1,10 @@
-package com.example.pxh612_loginapi_v2;
+package com.example.pxh612_loginapi_v2.repository;
 
 
 import android.content.Context;
 import android.util.Log;
 
-import com.example.pxh612_loginapi_v2.repository.CurrentAcountDatabaseHelper;
+import com.example.pxh612_loginapi_v2.Account;
 
 public class CurrentAccount {
 
@@ -13,11 +13,11 @@ public class CurrentAccount {
     private static String expireDate;
     private static String refreshToken;
     private static CurrentAcountDatabaseHelper currentAcountDatabaseHelper;
-//    private static
+    //    private static
     static Account account = new Account();
     private static boolean isLoggedIn = false;
 
-    public CurrentAccount(Context context){
+    public CurrentAccount(Context context) {
         currentAcountDatabaseHelper = new CurrentAcountDatabaseHelper(context, "accountdb", null, 1);
     }
 
@@ -37,6 +37,7 @@ public class CurrentAccount {
     public static void reset() {
         account = new Account();
         isLoggedIn = false;
+        currentAcountDatabaseHelper.deleteAccount();
     }
 
     public static boolean isLoggedIn() {
@@ -69,18 +70,24 @@ public class CurrentAccount {
     }
 
 
-    public static boolean isCheckedNotLoggedIn() {
+    public static boolean isCheckedLoggedIn() {
         String username = null;
         username = currentAcountDatabaseHelper.getUsername();
-        if(username == null){
+        if (username == null) {
             isLoggedIn = false;
             return false;
-        }
-        else {
+        } else {
             setUsername(username);
             isLoggedIn = true;
             return true;
         }
     }
 
+    public static boolean isCheckedNotLoggedIn() {
+        return !isCheckedLoggedIn();
+    }
+
+    public static void updateDatabase() {
+        currentAcountDatabaseHelper.addAccount(getUsername());
+    }
 }

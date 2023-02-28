@@ -2,7 +2,6 @@ package com.example.pxh612_loginapi_v2.activity;
 
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentActivity;
 
 import android.content.Intent;
@@ -12,7 +11,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.pxh612_loginapi_v2.CurrentAccount;
+import com.example.pxh612_loginapi_v2.repository.CurrentAccount;
 import com.example.pxh612_loginapi_v2.R;
 import com.example.pxh612_loginapi_v2.database.Strings;
 import com.example.pxh612_loginapi_v2.fragment.MyDialogFragment;
@@ -122,9 +121,11 @@ public class MainActivity extends FragmentActivity implements MyDialogFragment.M
         }
     }
 
-    public void onPositiveButtonClick(){
+    public void onDialogFragmentButtonClick(MyDialogFragment.BUTTON button){
         Log.v("__ pass", "MainActivity > onPositiveButtonClick()");
-        CurrentAccount.reset();
-        beginActivity(ACTIVITY.LOGIN_ACTIVITY);
+        if(button == MyDialogFragment.BUTTON.POSITIVE_BUTTON) {
+            CurrentAccount.reset();
+            beginActivity(ACTIVITY.LOGIN_ACTIVITY);
+        }
     }
 }

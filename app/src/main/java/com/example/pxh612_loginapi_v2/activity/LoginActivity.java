@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -26,7 +25,8 @@ import com.example.pxh612_loginapi_v2.fragment.MyDialogFragment;
 import com.example.pxh612_loginapi_v2.viewmodel.LoginViewModel;
 
 
-public class LoginActivity extends AppCompatActivity implements LoginAsyncTaskListener {
+public class LoginActivity extends AppCompatActivity implements LoginAsyncTaskListener, MyDialogFragment.MyDialogFragmentListener {
+
 
     // enum
     public enum LOGIN_STATUS{
@@ -165,7 +165,7 @@ public class LoginActivity extends AppCompatActivity implements LoginAsyncTaskLi
     void onClickButton(BUTTON_CLICK button_click){
         if(button_click == BUTTON_CLICK.LOGIN){
             fetchUserInput();
-            loginViewModel.gainAccessToServer(LoginActivity.this, username, password);
+            loginViewModel.connectToServer(LoginActivity.this, username, password);
 
             hideInputKeyboard();
             showDialogFragment(LOGIN_STATUS.LOADING);
@@ -239,6 +239,7 @@ public class LoginActivity extends AppCompatActivity implements LoginAsyncTaskLi
         if(result == LOGIN_STATUS.SUCCESSFUL){
 //            myDialogFragment.hideAll();
 //            hideMyDialogFragment();
+            loginViewModel.addToAccountResository();
             startMainActivity();
         }
         else if(result == LOGIN_STATUS.INVALID){
@@ -310,6 +311,11 @@ public class LoginActivity extends AppCompatActivity implements LoginAsyncTaskLi
         if (view != null) {
             inputManager.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
         }
+    }
+
+    @Override
+    public void onDialogFragmentButtonClick(MyDialogFragment.BUTTON button) {
+
     }
 
 //    public boolean onInterceptTouchEvent(MotionEvent ev) {

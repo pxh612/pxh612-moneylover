@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.example.pxh612_loginapi_v2.CurrentAccount;
+import com.example.pxh612_loginapi_v2.repository.CurrentAccount;
 import com.example.pxh612_loginapi_v2.R;
 
 
@@ -17,8 +17,6 @@ public class SplashScreenActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
-
-
 
 
         // Redirection
