@@ -37,7 +37,7 @@ public class AddTransactionActivty extends AppCompatActivity {
         setContentView(R.layout.activity_add_transaction_activty);
 
         // Class: new pointer
-        addTransactionViewModel = new AddTransactionViewModel();
+        addTransactionViewModel = new AddTransactionViewModel(this);
 
         // XML attach
         categoryEditText = findViewById(R.id.category_edittext);

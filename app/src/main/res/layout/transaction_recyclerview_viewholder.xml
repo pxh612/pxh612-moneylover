@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="amount"
+        android:textSize="25dp"
+        android:layout_marginLeft="7dp"
+        app:layout_goneMarginTop="8dp"
+        android:layout_marginTop="50dp"
+        ></TextView>
+    <TextView
+        android:id="@+id/cate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="category"
+        android:textSize="15dp"
+        android:layout_marginLeft="7dp"
+        app:layout_goneMarginTop="8dp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintTop_toBottomOf="@id/amount"
+        ></TextView>
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="date"
+        android:textSize="18dp"
+        android:layout_marginLeft="7dp"
+        app:layout_goneMarginTop="8dp"
+        android:layout_marginTop="50dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        ></TextView>
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@id/cate"
+
+        android:background="@android:color/darker_gray"
+        ></View>
+
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

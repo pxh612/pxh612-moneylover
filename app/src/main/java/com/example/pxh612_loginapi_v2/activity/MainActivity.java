@@ -3,6 +3,8 @@ package com.example.pxh612_loginapi_v2.activity;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,12 +13,17 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.pxh612_loginapi_v2.model.Transaction;
 import com.example.pxh612_loginapi_v2.repository.CurrentAccount;
 import com.example.pxh612_loginapi_v2.R;
 import com.example.pxh612_loginapi_v2.database.Strings;
 import com.example.pxh612_loginapi_v2.fragment.MyDialogFragment;
 
-public class MainActivity extends FragmentActivity implements MyDialogFragment.MyDialogFragmentListener {
+import java.util.ArrayList;
+
+public class MainActivity extends FragmentActivity implements MyDialogFragment.MyDialogFragmentListener, TransactionRecyclerViewAdapter.TransactionRecyclerViewAdapterListener {
+
+
 
 
     enum ACTIVITY{
@@ -34,11 +41,13 @@ public class MainActivity extends FragmentActivity implements MyDialogFragment.M
 
     // Classes
     MyDialogFragment myDialogFragment;
+    MainViewModel mainViewModel = new MainViewModel(this);
 
     // XML
     TextView welcomeMessage;
     ImageView addButton;
     TextView logoutButton;
+    RecyclerView recycleView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,11 +58,16 @@ public class MainActivity extends FragmentActivity implements MyDialogFragment.M
         welcomeMessage = findViewById(R.id.welcome_message);
         addButton = findViewById(R.id.add_button);
         logoutButton = findViewById(R.id.log_out);
+        recycleView = findViewById(R.id.recycler_view);
+
+        // XML recycleView
+        recycleView.setLayoutManager(new LinearLayoutManager(this));
+        updateRecycleView();
 
         // XML init
         welcomeMessage.setText("Welcome, " + CurrentAccount.getDisplayName() + "!");
 
-        /// Button
+        /// XML Button
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {onClickButton(BUTTON_CLICK.ADD_TRANSACTION);}
@@ -62,6 +76,11 @@ public class MainActivity extends FragmentActivity implements MyDialogFragment.M
             @Override
             public void onClick(View view) {onClickButton(BUTTON_CLICK.LOG_OUT);}
         });
+    }
+
+
+    private void updateRecycleView() {
+        recycleView.setAdapter(new TransactionRecyclerViewAdapter(mainViewModel.getTransactionArrayList(),this));
     }
 
     private void onClickButton(BUTTON_CLICK button_click) {
@@ -89,27 +108,6 @@ public class MainActivity extends FragmentActivity implements MyDialogFragment.M
 //        startActivityForResult(intent, AddTransactionActivty_REQUEST_CODE);
 //    }
 
-    private void updateView() {
-        // TODO
-    }
-
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == AddTransactionActivty_REQUEST_CODE) {
-            if (resultCode == RESULT_OK) {
-                updateView();
-            }
-        }
-    }
-
-
-    @Override
-    public void onBackPressed() {
-
-    }
-
     private void beginActivity(ACTIVITY activity) {
         if(activity == ACTIVITY.LOGIN_ACTIVITY) {
             Intent intent = new Intent(this, LoginActivity.class);
@@ -128,4 +126,30 @@ public class MainActivity extends FragmentActivity implements MyDialogFragment.M
             beginActivity(ACTIVITY.LOGIN_ACTIVITY);
         }
     }
+
+
+
+
+    @Override
+    public void onRecycleViewItemClick() {
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == AddTransactionActivty_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                updateRecycleView();
+            }
+        }
+    }
+
+
+    @Override
+    public void onBackPressed() {
+
+    }
+
+
 }

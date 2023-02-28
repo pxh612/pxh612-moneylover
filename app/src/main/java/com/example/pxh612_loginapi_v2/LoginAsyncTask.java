@@ -30,7 +30,4 @@ public class LoginAsyncTask extends AsyncTask<Void, Void, LoginActivity.LOGIN_ST
         return;
     }
 
-
-
-
 }
