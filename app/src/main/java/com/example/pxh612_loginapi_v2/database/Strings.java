@@ -7,4 +7,7 @@ public interface Strings {
     String INVALID_DIALOG_MESSAGE = "" +
             "Invalid email/password combination." + "\n" +
             "Please try again.";
+    String LOG_OUT_CONFIRMATION = "Are you sure you want to log out?";
+    String YES = "YES";
+    String NO = "NO";
 }

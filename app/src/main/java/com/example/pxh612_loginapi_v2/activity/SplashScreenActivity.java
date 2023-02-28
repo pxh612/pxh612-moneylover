@@ -11,6 +11,7 @@ import com.example.pxh612_loginapi_v2.R;
 
 public class SplashScreenActivity extends AppCompatActivity {
 
+    CurrentAccount currentAccount = new CurrentAccount(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,7 +22,7 @@ public class SplashScreenActivity extends AppCompatActivity {
 
 
         // Redirection
-        if(CurrentAccount.isNotLoggedIn()){
+        if(currentAccount.isCheckedNotLoggedIn()){
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
         }

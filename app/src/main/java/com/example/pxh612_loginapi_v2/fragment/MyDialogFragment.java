@@ -1,7 +1,9 @@
 package com.example.pxh612_loginapi_v2.fragment;
 
 
+import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
@@ -24,6 +26,11 @@ import com.example.pxh612_loginapi_v2.database.Strings;
 public class MyDialogFragment extends DialogFragment {
 
 
+    @Override
+    public void onAttach(@NonNull Activity activity) {
+        super.onAttach(activity);
+        
+    }
 
     public enum STATE{
         LOADING,
@@ -34,8 +41,24 @@ public class MyDialogFragment extends DialogFragment {
     // Data
     private String message;
     private String positiveButton;
-//    private LoginActivity.LOGIN_STATUS status;
+    private String negativeButton;
 
+    // Listener
+    MyDialogFragmentListener listener;
+    public interface MyDialogFragmentListener{
+        void onPositiveButtonClick();
+    }
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        try{
+            listener = (MyDialogFragmentListener) context;
+        }
+        catch (ClassCastException e) {
+            throw new ClassCastException(context.toString()
+                    + " : " + " You must implement MyDialogFragmentListener");
+        }
+    }
 
     // XML
     ConstraintLayout constraintLayout;
@@ -45,7 +68,9 @@ public class MyDialogFragment extends DialogFragment {
     TextView messageTextView;
     TextView closeButton;
 
-    // enum
+
+
+
 //
 //    public MyDialogFragment(LoginActivity.LOGIN_STATUS status, Bundle bundle) {
 //        this.message = bundle.getString("message");
@@ -57,21 +82,25 @@ public class MyDialogFragment extends DialogFragment {
     public MyDialogFragment(STATE state, Bundle bundle){
         this.message = bundle.getString("message");
         this.positiveButton = bundle.getString("positive_button");
+        this.negativeButton = bundle.getString("negative_button");
 
         if(state == STATE.LOADING){
             message = Strings.LOADING_DIALOG_MESSAGE;
         }
     }
 
+
+//    public MyDialogFragment(STATE state, Bundle bundle, MyDialogFragmentListener listener){
+//
+//        this.listener = listener;
+//    }
+//
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_my_dialog, container, false);
-
-
-        // Init XML
-//        hideAll();
-
         return v;
     }
 
@@ -94,118 +123,7 @@ public class MyDialogFragment extends DialogFragment {
 //        setArguments();
         progressBar.setVisibility(View.VISIBLE);
 
-
-        // CRASHED
-//        hideAll();
-//        getView().setVisibility(View.VISIBLE);
-//        showLoadingDialog();
-//        getView().setVisibility(View.GONE);
-//        getDialog().setTitle("Dialog #"); //  set DialogFragment title: crashed
     }
-
-//    private void showEssentials(STATE state){
-////        hideAll();
-////        getView().setVisibility(View.GONE);
-////        constraintLayout.setVisibility(View.VISIBLE);
-////        getView().
-////        gray_background.setVisibility(View.VISIBLE);
-////        dialogBox.setVisibility(View.VISIBLE);
-////        messageTextView.setVisibility(View.VISIBLE);
-////        Log.d("__ pass", "MyDialogFragment > showEssentials() :  messageTextView.setVisibility(View.VISIBLE);");
-////        if(state == )
-//        messageTextView.setText(message);
-//
-//
-//        if(state == STATE.LOADING){
-////            messageTextView.setText("Loading...");
-//            progressBar.setVisibility(View.VISIBLE);
-//        }
-//        else {
-//            progressBar.setVisibility(View.GONE);
-//        }
-//
-//        if(state == STATE.SIMPLE_NOTIFY){
-////            getView().setVisibility(View.GONE);
-////            getView().setVisibility(View.VISIBLE);
-////            messageTextView.setText(message);
-//            closeButton.setVisibility(View.VISIBLE);
-//        }
-//        else{
-//            closeButton.setVisibility(View.GONE);
-//        }
-//    }
-//
-
-//    public void notifyNoConnection() {
-//    }
-
-//    public void hideLoadingDialog() {
-//    }
-
-//    public void notifyLoginInvalid() {
-//        Log.d("__ pass", "MyDialogFragment > notifyLoginInvalid");
-//        progressBar.setVisibility(View.GONE);
-//        messageTextView.setText(LoginActivity.INVALID_DIALOG_MESSAGE);
-//        hideAll();
-//        getDialog().setTitle("sds");
-//    }
-
-//    public void showLoadingDialog() {
-////        Log.d("__ pass", "MyDialogFragment > showLoadingDialog");
-//        this.message = "Loading...";
-//        showEssentials(STATE.LOADING);
-//        hideAll();
-//        showEssentials();
-////        message.setVisibility(View.VISIBLE);
-//        progressBar.setVisibility(View.VISIBLE);
-//        message.setText("Loading...");
-//        getView().setVisibility(View.VISIBLE);
-//        closeButton.setVisibility(View.GONE);
-//    }
-
-//    public void hideAll() {
-//
-//        Log.d("__ pass", "MyDialogFragment > hideAll");
-//
-//        //
-//        getView().setVisibility(View.GONE);
-//
-////        getView().setVisibility(View.GONE);
-//    //    constraintLayout.setVisibility(View.GONE);
-////        view.setVisibility(View.GONE);
-////        progressBar.setVisibility(View.GONE);
-////        message.setVisibility(View.GONE);
-//
-//
-//    }
-
-//    public void notifySimple(String message) {
-////        this.messageTextView
-//        this.message = message;
-//        showEssentials(STATE.SIMPLE_NOTIFY);
-//        Log.d("__ pass", "MyDialogFragment > notifySimple");
-
-//        progressBar.setVisibility(View.GONE);
-//        closeButton.setVisibility(View.VISIBLE);
-//        this.message.setText(message);
-//    }
-
-//    @Override
-//    public void onBackPressed(){
-//        super.onBackPressed();
-//    }
-
-//    @Override
-//    public void onBackPressed() {
-//        // Check if there are any fragments in the back stack
-//        if (getParentFragmentManager().getBackStackEntryCount() > 0) {
-//            // Pop the top fragment from the back stack
-//            getParentFragmentManager().popBackStack();
-////        } else {
-////            // If there are no fragments in the back stack, let the activity handle the back button press
-////            super.onBackPressed();
-//        }
-//    }
 
     @NonNull
     @Override
@@ -222,22 +140,23 @@ public class MyDialogFragment extends DialogFragment {
 //        }
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder
-                .setMessage(message);
+        builder.setMessage(message);
 
         if(positiveButton != null)
                 builder.setPositiveButton(positiveButton, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        // Handle OK button click
+                        listener.onPositiveButtonClick();
                     }
                 });
-//                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialogInterface, int i) {
-//                        // Handle Cancel button click
-//                    }
-//                });
+
+        if(negativeButton != null)
+                builder.setNegativeButton(negativeButton, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        // Handle Cancel button click
+                    }
+                });
 
 //        if(state == STATE.LOADING){
 ////            builder.setIcon(R.dr)
