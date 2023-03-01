@@ -5,6 +5,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.example.pxh612_loginapi_v2.Account;
+import com.example.pxh612_loginapi_v2.databasehelper.KeyValueDatabaseHelper;
 
 public class CurrentAccount {
 
@@ -12,13 +13,13 @@ public class CurrentAccount {
     private static String accessToken = null;
     private static String expireDate;
     private static String refreshToken;
-    private static CurrentAcountDatabaseHelper currentAcountDatabaseHelper;
+    private static KeyValueDatabaseHelper keyValueDatabaseHelper;
     //    private static
     static Account account = new Account();
     private static boolean isLoggedIn = false;
 
     public CurrentAccount(Context context) {
-        currentAcountDatabaseHelper = new CurrentAcountDatabaseHelper(context, "accountdb", null, 1);
+        keyValueDatabaseHelper = KeyValueDatabaseHelper.getInstance(context);
     }
 
     public static boolean isNotLoggedIn() {
@@ -37,7 +38,7 @@ public class CurrentAccount {
     public static void reset() {
         account = new Account();
         isLoggedIn = false;
-        currentAcountDatabaseHelper.deleteAccount();
+        keyValueDatabaseHelper.deleteKeyValue("username");
     }
 
     public static boolean isLoggedIn() {
@@ -72,7 +73,7 @@ public class CurrentAccount {
 
     public static boolean isCheckedLoggedIn() {
         String username = null;
-        username = currentAcountDatabaseHelper.getUsername();
+        username = keyValueDatabaseHelper.getKeyValue("username");
         if (username == null) {
             isLoggedIn = false;
             return false;
@@ -88,6 +89,7 @@ public class CurrentAccount {
     }
 
     public static void updateDatabase() {
-        currentAcountDatabaseHelper.addAccount(getUsername());
+        keyValueDatabaseHelper.addKeyValue("username", getUsername());
+//        keyValueDatabaseHelper.addKeyValue(getUsername());
     }
 }

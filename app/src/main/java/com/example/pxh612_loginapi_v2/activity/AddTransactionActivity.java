@@ -141,7 +141,8 @@ public class AddTransactionActivity extends AppCompatActivity implements DatePic
         // Careful: NumberFormatException
 
         category = categoryEditText.getText().toString();
-        amount = Integer.parseInt( (String) amountEditText.getText().toString() );
+        amountEditText.getText().toString();
+//        amount = Integer.parseInt( (String) amountEditText.getText().toString() );
 //        date = Integer.parseInt( (String) dateEditText.getText().toString() );
 //        Log.v("__ Values:", "AddTransactionActivty > fetchUserInput : category & amount & date = " +
 //                category + " & " + Integer.toString(amount) + " & " + Integer.toString(date));

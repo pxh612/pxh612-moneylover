@@ -10,4 +10,5 @@ public interface Strings {
     String LOG_OUT_CONFIRMATION = "Are you sure you want to log out?";
     String YES = "YES";
     String NO = "NO";
+    String AMP = " & ";
 }

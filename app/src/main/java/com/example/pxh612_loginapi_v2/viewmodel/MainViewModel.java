@@ -11,12 +11,13 @@ import java.util.ArrayList;
 
 public class MainViewModel {
 
-    TransactionRepository transactionRepository;
+    static TransactionRepository transactionRepository;
     Context context;
 
     public MainViewModel(Context context) {
         this.context = context;
-        transactionRepository = new TransactionRepository(context);
+//        transactionRepository = new TransactionRepository(context);
+        transactionRepository = TransactionRepository.getInstance(context);
     }
 
     public ArrayList<Transaction> getTransactionArrayList() {
@@ -27,4 +28,7 @@ public class MainViewModel {
         return transactionRepository.getTransactionArrayList();
     }
 
+    public void removeTransaction(int position) {
+        transactionRepository.removeTransaction(position);
+    }
 }

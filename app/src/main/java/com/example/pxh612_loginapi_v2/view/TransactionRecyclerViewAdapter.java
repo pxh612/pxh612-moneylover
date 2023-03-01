@@ -1,4 +1,4 @@
-package com.example.pxh612_loginapi_v2.activity;
+package com.example.pxh612_loginapi_v2.view;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,8 +23,6 @@ public class TransactionRecyclerViewAdapter extends RecyclerView.Adapter<Transac
     };
     TransactionRecyclerViewAdapterListener listener;
     public TransactionRecyclerViewAdapter(ArrayList<Transaction> transactions, TransactionRecyclerViewAdapterListener listener) {
-        // get data from mainViewModel here
-        //        this.transactions = new ArrayList<>();
         this.transactions = transactions;
         this.listener = listener;
 
@@ -38,10 +36,6 @@ public class TransactionRecyclerViewAdapter extends RecyclerView.Adapter<Transac
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.transaction_recyclerview_viewholder,parent, false);
         return new ViewHolder(v);
     }
-//    public DeckLibraryFragmentRecyclerViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-//        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_deck_library_recyclerview_viewholder, parent, false);
-//        return new ViewHolder(v);
-//    }
 
     @Override
     public void onBindViewHolder(@NonNull TransactionRecyclerViewAdapter.ViewHolder holder, int position) {
