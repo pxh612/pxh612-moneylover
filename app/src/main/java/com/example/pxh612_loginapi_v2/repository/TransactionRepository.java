@@ -1,8 +1,10 @@
 package com.example.pxh612_loginapi_v2.repository;
 
-import android.content.Context;
-import android.util.Log;
+import static com.example.pxh612_loginapi_v2.database.Symbols.EQL;
 
+import android.content.Context;
+
+import com.example.pxh612_loginapi_v2.database.KeyNames;
 import com.example.pxh612_loginapi_v2.databasehelper.KeyValueDatabaseHelper;
 import com.example.pxh612_loginapi_v2.databasehelper.TransactionDatabaseHelper;
 import com.example.pxh612_loginapi_v2.model.Transaction;
@@ -32,16 +34,11 @@ public class TransactionRepository {
 //        transactionDatabaseHelper = new TransactionDatabaseHelper(context, "transactiondb", null, 1);
         transactionDatabaseHelper = TransactionDatabaseHelper.getInstance(context);
 
-        Timber.e("transactionDatabaseHelper.removeAllItem(); = CRASHED");
-        Timber.e("transactionDatabaseHelper.addTransaction(\"cooking\",555,3423423,99);");
+//        Timber.e("transactionDatabaseHelper.removeAllItem(); = CRASHED");
+//        Timber.e("transactionDatabaseHelper.addTransaction(\"cooking\",555,3423423,99);");
        // transactionDatabaseHelper.removeAllItem(); // CRASHED
 //        keyValueDatabaseHelper.getKeyValue("CustomTransactionIDAssigner"); // CRASHED
 
-
-        // Data init
-//        String customTransactionIdAssignerString = null;
-//        customTransactionIdAssignerString = keyValueDatabaseHelper.getKeyValue("CustomTransactionIDAssigner");
-//        customTransactionIdAssigner = Integer.parseInt(customTransactionIdAssignerString);
     }
     public static TransactionRepository getInstance(Context context){
         if(instance == null){
@@ -61,10 +58,6 @@ public class TransactionRepository {
 
 
         transactionArrayList = transactionDatabaseHelper.getTransactionArrayList();
-        Log.v("__ pass",
-                "TransactionRepository > getTransactionArrayList() : " +
-                        " transactionArrayList.size() = " + Integer.toString(transactionArrayList.size()));
-
         return transactionArrayList;
     }
 
@@ -74,16 +67,24 @@ public class TransactionRepository {
     }
 
     private int newCustomID() {
-        keyValueDatabaseHelper.getKeyValue("CustomTransactionIDAssigner");
+        customTransactionIdAssigner = Integer.parseInt(keyValueDatabaseHelper.getKeyValue(KeyNames.CustomTransactionIDAssigner));
+        Timber.v("customTransactionIdAssigner = " + customTransactionIdAssigner);
+        // BIG-ERROR: I forgot to pass value directly. The function give value to nowhere.
         customTransactionIdAssigner++;
 
+
         String customTransactionIdAssignerString = Integer.toString(customTransactionIdAssigner);
-        keyValueDatabaseHelper.updateKeyValue("CustomTransactionIDAssigner", customTransactionIdAssignerString);
+        keyValueDatabaseHelper.updateOrInsertKeyValue(KeyNames.CustomTransactionIDAssigner, customTransactionIdAssignerString);
 
         return customTransactionIdAssigner;
     }
 
-    public void removeTransaction(int position) {
-        transactionDatabaseHelper.removeItem(position);
+    public void removeTransaction(int transactionId) {
+        Timber.d("removing transaction with id" + EQL + transactionId);
+        transactionDatabaseHelper.removeItemWithCustomId(transactionId);
+    }
+
+    public void removeAllTransaction() {
+        transactionDatabaseHelper.removeAllItem();
     }
 }

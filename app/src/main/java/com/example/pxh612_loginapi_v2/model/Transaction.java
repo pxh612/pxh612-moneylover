@@ -7,11 +7,18 @@ public class Transaction {
     String category;
     int amount;
     long epochSeconds;
+    int id;
 
     public Transaction(String category, int amount, long epochSeconds){
         this.category = category;
         this.amount = amount;
         this.epochSeconds = epochSeconds;
+    }
+    public Transaction(String category, int amount, long epochSeconds, int id){
+        this.category = category;
+        this.amount = amount;
+        this.epochSeconds = epochSeconds;
+        this.id = id;
     }
     public String getCategory(){return category;}
     public String getAmountString(){return Integer.toString(amount);}
@@ -29,4 +36,8 @@ public class Transaction {
     }
     public int getAmount(){return amount;}
     public long getEpochSeconds(){return epochSeconds;}
+
+    public int getId() {
+        return id;
+    }
 }

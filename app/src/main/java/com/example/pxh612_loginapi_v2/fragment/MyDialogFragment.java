@@ -20,7 +20,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.DialogFragment;
 
 import com.example.pxh612_loginapi_v2.R;
-import com.example.pxh612_loginapi_v2.database.Strings;
+import com.example.pxh612_loginapi_v2.database.Messages;
 
 public class MyDialogFragment extends DialogFragment {
 
@@ -88,7 +88,7 @@ public class MyDialogFragment extends DialogFragment {
         this.negativeButton = bundle.getString("negative_button");
 
         if(state == STATE.LOADING){
-            message = Strings.LOADING_DIALOG_MESSAGE;
+            message = Messages.LOADING_DIALOG_MESSAGE;
         }
     }
 

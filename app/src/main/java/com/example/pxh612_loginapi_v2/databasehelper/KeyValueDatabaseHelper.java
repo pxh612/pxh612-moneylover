@@ -1,11 +1,12 @@
 package com.example.pxh612_loginapi_v2.databasehelper;
 
+import static com.example.pxh612_loginapi_v2.database.Symbols.AMP;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 import androidx.annotation.Nullable;
 
@@ -68,7 +69,7 @@ public class KeyValueDatabaseHelper extends SQLiteOpenHelper {
 //        db.insert(TABLE_NAME, null, values);
 //        db.close();
 //    }
-    public void addKeyValue(String keyName, String keyValue){
+    public void insertKeyValue(String keyName, String keyValue){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
@@ -83,9 +84,7 @@ public class KeyValueDatabaseHelper extends SQLiteOpenHelper {
     }
 
     public String getKeyValue(String keyNameSearched) {
-        SQLiteDatabase db = this.getReadableDatabase();        // CRASHED HERE
-        // table already exist?
-        // Nope, it never ran onCreate()
+        SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursorCourses
                 = db.rawQuery("SELECT * FROM " + TABLE_NAME, null);
@@ -96,8 +95,8 @@ public class KeyValueDatabaseHelper extends SQLiteOpenHelper {
                String keyNameFetched  = cursorCourses.getString(1);
                String keyValueFetched = cursorCourses.getString(2);
                if(keyNameFetched.equals(keyNameSearched)) keyValueResult = keyValueFetched;
+               Timber.v("cursorCourses moving: keynameFetched & keyValueFetched = " + keyNameFetched + AMP + keyValueFetched);
             } while (cursorCourses.moveToNext());
-            // moving our cursor to next.
         }
         cursorCourses.close();
         return keyValueResult;
@@ -127,24 +126,32 @@ public class KeyValueDatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void updateKeyValue(String keyName, String keyValue) {
+    public void updateOrInsertKeyValue(String keyName, String keyValue) {
 //        Suppose, Jane got married and she wanted to change her last name to her husband’s last name i.e., Smith. In this case, you can update Jane’s last name using the following statement:
 //        UPDATE employees
 //        SET lastname = 'Smith'
 //        WHERE employeeid = 3;
 
-        // calling a method to get writable database.
-        SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-
-        // on below line we are passing all values
-        // along with its key and value pair.
         values.put(KEYNAME_COL, keyName);
         values.put(KEYVALUE_COL, keyValue);
 
-        // on below line we are calling a update method to update our database and passing our values.
-        // and we are comparing it with name of our course which is stored in original name variable.
-        db.update(TABLE_NAME, values, KEYNAME_COL + "=?", new String[]{keyName});
+        // calling a method to get writable database.
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.query(TABLE_NAME, null, KEYNAME_COL + "=?", new String[] { keyName }, null, null, null);
+        boolean exists = cursor.moveToFirst();
+        cursor.close();
+
+        if (exists) {
+            // If the key name exists, update the existing row
+            db.update(TABLE_NAME, values, KEYNAME_COL + "=?", new String[]{keyName});
+
+        } else {
+            // If the key name does not exist, insert a new row
+
+            db.insert(TABLE_NAME, null, values);
+        }
+
         db.close();
     }
 

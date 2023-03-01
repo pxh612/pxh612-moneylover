@@ -89,7 +89,7 @@ public class CurrentAccount {
     }
 
     public static void updateDatabase() {
-        keyValueDatabaseHelper.addKeyValue("username", getUsername());
+        keyValueDatabaseHelper.insertKeyValue("username", getUsername());
 //        keyValueDatabaseHelper.addKeyValue(getUsername());
     }
 }

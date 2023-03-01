@@ -18,22 +18,24 @@ public class TransactionRecyclerViewAdapter extends RecyclerView.Adapter<Transac
 
     private ArrayList<Transaction> transactions = new ArrayList<>();
 
-    public interface TransactionRecyclerViewAdapterListener{
+
+    public interface TransactionRecyclerViewAdapterListener {
         void onRecycleViewItemClick();
-    };
+    }
+
+    ;
     TransactionRecyclerViewAdapterListener listener;
+
     public TransactionRecyclerViewAdapter(ArrayList<Transaction> transactions, TransactionRecyclerViewAdapterListener listener) {
         this.transactions = transactions;
         this.listener = listener;
-
-        Log.d("__ ArrayList size()", "TransactionRecyclerViewAdapter > TransactionRecyclerViewAdapter : " +
-                "transactions.size() = " + Integer.toString(transactions.size()));
     }
+
 
     @NonNull
     @Override
     public TransactionRecyclerViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.transaction_recyclerview_viewholder,parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.transaction_recyclerview_viewholder, parent, false);
         return new ViewHolder(v);
     }
 
@@ -50,14 +52,14 @@ public class TransactionRecyclerViewAdapter extends RecyclerView.Adapter<Transac
     }
 
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
         // XML
         TextView amount;
         TextView cate;
         TextView date;
 
-        public ViewHolder(View v){
+        public ViewHolder(View v) {
             super(v);
 
             // XML: ATTACH VIEW
@@ -68,7 +70,7 @@ public class TransactionRecyclerViewAdapter extends RecyclerView.Adapter<Transac
             // ON SCREEN CLICK
             v.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View v){
+                public void onClick(View v) {
 //                    int position = getAdapterPosition();
 //                    int deckID = deckIDs.get(position);
 //                    listener.onRecycleViewItemClick(deckID);
@@ -76,4 +78,13 @@ public class TransactionRecyclerViewAdapter extends RecyclerView.Adapter<Transac
             });
         }
     }
+
+    public int getTransactionID(int recyclerviewItemPosition) {
+        return transactions.get(recyclerviewItemPosition).getId();
+    }
+
+    public void removeItem(int recyclerviewItemPosition) {
+        transactions.remove(recyclerviewItemPosition);
+    }
+
 }

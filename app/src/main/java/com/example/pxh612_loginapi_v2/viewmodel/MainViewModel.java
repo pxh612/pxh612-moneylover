@@ -1,5 +1,7 @@
 package com.example.pxh612_loginapi_v2.viewmodel;
 
+import static com.example.pxh612_loginapi_v2.database.Symbols.EQL;
+
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,6 +10,8 @@ import com.example.pxh612_loginapi_v2.model.Transaction;
 import com.example.pxh612_loginapi_v2.repository.TransactionRepository;
 
 import java.util.ArrayList;
+
+import timber.log.Timber;
 
 public class MainViewModel {
 
@@ -28,7 +32,12 @@ public class MainViewModel {
         return transactionRepository.getTransactionArrayList();
     }
 
-    public void removeTransaction(int position) {
-        transactionRepository.removeTransaction(position);
+    public void removeTransaction(int transactionId) {
+        Timber.d("removing transaction with id" + EQL + transactionId);
+        transactionRepository.removeTransaction(transactionId);
+    }
+
+    public void removeAllTransaction() {
+        transactionRepository.removeAllTransaction();
     }
 }

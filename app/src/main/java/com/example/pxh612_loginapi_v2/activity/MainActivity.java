@@ -1,10 +1,12 @@
 package com.example.pxh612_loginapi_v2.activity;
 
 
+import static com.example.pxh612_loginapi_v2.database.Symbols.AMP;
+import static com.example.pxh612_loginapi_v2.database.Symbols.EQL;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,7 +20,7 @@ import android.widget.TextView;
 
 import com.example.pxh612_loginapi_v2.repository.CurrentAccount;
 import com.example.pxh612_loginapi_v2.R;
-import com.example.pxh612_loginapi_v2.database.Strings;
+import com.example.pxh612_loginapi_v2.database.Messages;
 import com.example.pxh612_loginapi_v2.fragment.MyDialogFragment;
 import com.example.pxh612_loginapi_v2.view.SwipeToDeleteCallback;
 import com.example.pxh612_loginapi_v2.view.TransactionRecyclerViewAdapter;
@@ -40,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements MyDialogFragment.
     }
     enum BUTTON_CLICK{
         ADD_TRANSACTION,
-        LOG_OUT
+        DEBUG, LOG_OUT
     }
     final int AddTransactionActivty_REQUEST_CODE = 1;
 
@@ -51,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements MyDialogFragment.
 
     // XML
     TextView welcomeMessage;
+    TextView debugButton;
     ImageView addButton;
     TextView logoutButton;
     RecyclerView recyclerView;
@@ -68,6 +71,7 @@ public class MainActivity extends AppCompatActivity implements MyDialogFragment.
         addButton = findViewById(R.id.add_button);
         logoutButton = findViewById(R.id.log_out);
         recyclerView = findViewById(R.id.recycler_view);
+        debugButton = findViewById(R.id.debug_button);
 
         // XML recycleView
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -86,6 +90,10 @@ public class MainActivity extends AppCompatActivity implements MyDialogFragment.
             @Override
             public void onClick(View view) {onClickButton(BUTTON_CLICK.LOG_OUT);}
         });
+        debugButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {onClickButton(BUTTON_CLICK.DEBUG);}
+        });
     }
     private void initHandleSwipeEvent() {
         SwipeToDeleteCallback swipeToDeleteCallBack = new SwipeToDeleteCallback(this) {
@@ -93,6 +101,7 @@ public class MainActivity extends AppCompatActivity implements MyDialogFragment.
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 recyclerviewItemPosition = viewHolder.getAdapterPosition();
                 if(direction == ItemTouchHelper.LEFT){
+
                     removeTransaction(recyclerviewItemPosition);
 //                    showDialogFragment(DIALOG_FRAGMENT.DELETE_ITEM);
 //                    showDeleteConfirmationDialog(position);
@@ -103,6 +112,17 @@ public class MainActivity extends AppCompatActivity implements MyDialogFragment.
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(swipeToDeleteCallBack);
         itemTouchHelper.attachToRecyclerView(recyclerView);
+    }
+
+    private void removeTransaction(int recyclerviewItemPosition) {
+        int transactionId = adapter.getTransactionID(recyclerviewItemPosition);
+        Timber.d("recyclerviewItemPosition" + EQL + recyclerviewItemPosition + AMP + "removing transaction with id" + EQL + transactionId);
+
+        mainViewModel.removeTransaction(transactionId);
+        adapter.removeItem(recyclerviewItemPosition);
+        adapter.notifyItemRemoved(recyclerviewItemPosition);
+
+//        updateRecycleView();
     }
 
     @Override
@@ -127,14 +147,14 @@ public class MainActivity extends AppCompatActivity implements MyDialogFragment.
     private void showDialogFragment(DIALOG_FRAGMENT dialog) {
         Bundle bundle = new Bundle();
         if(dialog == DIALOG_FRAGMENT.LOG_OUT){
-            bundle.putString("message", Strings.LOG_OUT_CONFIRMATION);
-            bundle.putString("positive_button", Strings.YES);
-            bundle.putString("negative_button", Strings.NO);
+            bundle.putString("message", Messages.LOG_OUT_CONFIRMATION);
+            bundle.putString("positive_button", Messages.YES);
+            bundle.putString("negative_button", Messages.NO);
         }
         else if(dialog == DIALOG_FRAGMENT.DELETE_ITEM){
 //            bundle.putString("message", Strings.DELETE_TRANSACTION_CONFIRMATION);
-            bundle.putString("positive_button", Strings.YES);
-            bundle.putString("negative_button", Strings.NO);
+            bundle.putString("positive_button", Messages.YES);
+            bundle.putString("negative_button", Messages.NO);
             bundle.putInt("position", recyclerviewItemPosition);
         }
         myDialogFragment = new MyDialogFragment(MyDialogFragment.STATE.SIMPLE_NOTIFY, bundle);
@@ -165,24 +185,9 @@ public class MainActivity extends AppCompatActivity implements MyDialogFragment.
         }
     }
 
-
-
-    private void removeTransaction(int position) {
-        // erase data
-        // TODO main
-
-//        mainViewModel.removeTransaction(position);
-//        mainViewModel.removeTransaction();
-
-        // update view
-//        adapter.notifyItemRemoved(position);
-
-    }
-
     private void updateRecycleView() {
         adapter = new TransactionRecyclerViewAdapter(mainViewModel.getTransactionArrayList(),this);
         recyclerView.setAdapter(adapter);
-//        recyclerView.setAdapter(new TransactionRecyclerViewAdapter(mainViewModel.getTransactionArrayList(),this));
     }
 
     private void onClickButton(BUTTON_CLICK button_click) {
@@ -192,11 +197,11 @@ public class MainActivity extends AppCompatActivity implements MyDialogFragment.
         else if(button_click == BUTTON_CLICK.LOG_OUT){
             showDialogFragment(DIALOG_FRAGMENT.LOG_OUT);
         }
+        else if(button_click == BUTTON_CLICK.DEBUG){
+            mainViewModel.removeAllTransaction();
+            updateRecycleView();
+//            showDialogFragment(DIALOG_FRAGMENT.LOG_OUT);
+        }
     }
-
-
-
-
-
 
 }

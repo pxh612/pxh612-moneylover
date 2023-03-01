@@ -20,7 +20,7 @@ import android.widget.Toast;
 import com.example.pxh612_loginapi_v2.LoginAsyncTaskListener;
 import com.example.pxh612_loginapi_v2.R;
 import com.example.pxh612_loginapi_v2.database.AccountExample;
-import com.example.pxh612_loginapi_v2.database.Strings;
+import com.example.pxh612_loginapi_v2.database.Messages;
 import com.example.pxh612_loginapi_v2.fragment.MyDialogFragment;
 import com.example.pxh612_loginapi_v2.viewmodel.LoginViewModel;
 
@@ -194,13 +194,13 @@ public class LoginActivity extends AppCompatActivity implements LoginAsyncTaskLi
         MyDialogFragment.STATE state = null;
         if(status == LOGIN_STATUS.INVALID) {
             bundle.putString("message", INVALID_DIALOG_MESSAGE);
-            bundle.putString("positive_button", Strings.CLOSE_DIALOG_MESSAGE);
+            bundle.putString("positive_button", Messages.CLOSE_DIALOG_MESSAGE);
 
             state = MyDialogFragment.STATE.SIMPLE_NOTIFY;
         }
         else if(status == LOGIN_STATUS.NO_CONNECTION){
-            bundle.putString("message", Strings.NO_CONNECTION_DIALOG_MESSAGE);
-            bundle.putString("positive_button", Strings.CLOSE_DIALOG_MESSAGE);
+            bundle.putString("message", Messages.NO_CONNECTION_DIALOG_MESSAGE);
+            bundle.putString("positive_button", Messages.CLOSE_DIALOG_MESSAGE);
 
             state = MyDialogFragment.STATE.SIMPLE_NOTIFY;
         }
