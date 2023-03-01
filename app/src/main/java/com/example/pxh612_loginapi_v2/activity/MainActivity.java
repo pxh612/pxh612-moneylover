@@ -13,13 +13,11 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.pxh612_loginapi_v2.model.Transaction;
 import com.example.pxh612_loginapi_v2.repository.CurrentAccount;
 import com.example.pxh612_loginapi_v2.R;
 import com.example.pxh612_loginapi_v2.database.Strings;
 import com.example.pxh612_loginapi_v2.fragment.MyDialogFragment;
-
-import java.util.ArrayList;
+import com.example.pxh612_loginapi_v2.viewmodel.MainViewModel;
 
 public class MainActivity extends FragmentActivity implements MyDialogFragment.MyDialogFragmentListener, TransactionRecyclerViewAdapter.TransactionRecyclerViewAdapterListener {
 
@@ -77,7 +75,23 @@ public class MainActivity extends FragmentActivity implements MyDialogFragment.M
             public void onClick(View view) {onClickButton(BUTTON_CLICK.LOG_OUT);}
         });
     }
+    @Override
+    public void onRecycleViewItemClick() {
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == AddTransactionActivty_REQUEST_CODE) {
+            updateRecycleView();
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+
+    }
 
     private void updateRecycleView() {
         recycleView.setAdapter(new TransactionRecyclerViewAdapter(mainViewModel.getTransactionArrayList(),this));
@@ -114,7 +128,7 @@ public class MainActivity extends FragmentActivity implements MyDialogFragment.M
             startActivity(intent);
         }
         else if(activity == ACTIVITY.ADD_TRANSACTION_ACTIVITY){
-            Intent intent = new Intent(this, AddTransactionActivty.class);
+            Intent intent = new Intent(this, AddTransactionActivity.class);
             startActivityForResult(intent, AddTransactionActivty_REQUEST_CODE);
         }
     }
@@ -129,27 +143,6 @@ public class MainActivity extends FragmentActivity implements MyDialogFragment.M
 
 
 
-
-    @Override
-    public void onRecycleViewItemClick() {
-
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == AddTransactionActivty_REQUEST_CODE) {
-            if (resultCode == RESULT_OK) {
-                updateRecycleView();
-            }
-        }
-    }
-
-
-    @Override
-    public void onBackPressed() {
-
-    }
 
 
 }

@@ -20,7 +20,7 @@ public class TransactionRecyclerViewAdapter extends RecyclerView.Adapter<Transac
 
     public interface TransactionRecyclerViewAdapterListener{
         void onRecycleViewItemClick();
-    }
+    };
     TransactionRecyclerViewAdapterListener listener;
     public TransactionRecyclerViewAdapter(ArrayList<Transaction> transactions, TransactionRecyclerViewAdapterListener listener) {
         // get data from mainViewModel here

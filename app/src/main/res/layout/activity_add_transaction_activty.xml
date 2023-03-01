@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.AddTransactionActivty">
+    tools:context=".activity.AddTransactionActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -95,21 +95,33 @@
             app:layout_constraintTop_toTopOf="parent">
         </TextView>
 
-        <EditText
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="@dimen/add_transaction_edittext_height"
+            android:id="@+id/date_display"
+            app:layout_constraintTop_toBottomOf="@id/date_textview"
+            >
+        </TextView>
+
+
+
+        <DatePicker
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:id="@+id/date_edittext"
-            app:layout_constraintTop_toBottomOf="@+id/date_textview"
-            app:layout_constraintBottom_toBottomOf="parent"
             android:inputType="date"
             android:background="@color/material_grey_50"
+            app:layout_constraintTop_toTopOf="@id/date_display"
+            app:layout_constraintBottom_toBottomOf="@id/date_display"
+            android:visibility="invisible"
+            ></DatePicker>
 
-            ></EditText>
+
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/add_transaction_line_height"
             android:background="@color/design_default_color_error"
-            app:layout_constraintTop_toBottomOf="@+id/date_edittext"
+            app:layout_constraintTop_toBottomOf="@+id/date_display"
             android:layout_marginTop="@dimen/add_transaction_line_margin_top"
             ></View>
 

@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import com.example.pxh612_loginapi_v2.model.Transaction;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class TransactionDatabaseHelper extends SQLiteOpenHelper{
 
@@ -43,7 +44,7 @@ public class TransactionDatabaseHelper extends SQLiteOpenHelper{
         onCreate(sqLiteDatabase);
     }
 
-    public void addTransaction(String category, int amount, int date){
+    public void addTransaction(String category, int amount, long date){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
@@ -68,8 +69,10 @@ public class TransactionDatabaseHelper extends SQLiteOpenHelper{
             do {
                 int amount = cursorCourses.getInt(1);
                 String cate = cursorCourses.getString(2);
-                int date = cursorCourses.getInt(3);
-                transactions.add(new Transaction(cate, amount, date));
+                long epochSeconds = cursorCourses.getInt(3);
+//                Calendar calendar;
+//                calendar.setTimeInMillis(epochSeconds;);
+                transactions.add(new Transaction(cate, amount, epochSeconds));
             } while (cursorCourses.moveToNext());
             // moving our cursor to next.
         }

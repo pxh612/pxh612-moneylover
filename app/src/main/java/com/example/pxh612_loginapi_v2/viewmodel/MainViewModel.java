@@ -1,4 +1,4 @@
-package com.example.pxh612_loginapi_v2.activity;
+package com.example.pxh612_loginapi_v2.viewmodel;
 
 import android.content.Context;
 import android.os.Bundle;

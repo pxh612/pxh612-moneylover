@@ -60,7 +60,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".activity.AddTransactionActivty"
+            android:name=".activity.AddTransactionActivity"
             android:exported="false"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <meta-data

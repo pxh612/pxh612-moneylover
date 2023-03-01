@@ -27,14 +27,16 @@ public class TransactionRepository {
 //        transactionArrayList.add(new Transaction("gas", 100000, 2022));
 //        transactionArrayList.add(new Transaction("clothes", 1500000, 2023));
 //        transactionArrayList.add(new Transaction("internet", 120000, 2023));
-//        Log.v("__ pass",
-//                "TransactionRepository > getTransactionArrayList() : " +
-//                        " transactionArrayList.size() = " + Integer.toString(transactionArrayList.size()));
+
         transactionArrayList = transactionDatabaseHelper.getTransactionArrayList();
+        Log.v("__ pass",
+                "TransactionRepository > getTransactionArrayList() : " +
+                        " transactionArrayList.size() = " + Integer.toString(transactionArrayList.size()));
+
         return transactionArrayList;
     }
 
-    public void addTransaction(String category, int amount, int date) {
+    public void addTransaction(String category, int amount, long date) {
         transactionDatabaseHelper.addTransaction(category, amount, date);
     }
 }
