@@ -20,7 +20,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.DialogFragment;
 
 import com.example.pxh612_loginapi_v2.R;
-import com.example.pxh612_loginapi_v2.database.Messages;
+import com.example.pxh612_loginapi_v2.datasource.Messages;
 
 public class MyDialogFragment extends DialogFragment {
 

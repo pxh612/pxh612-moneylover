@@ -16,7 +16,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.pxh612_loginapi_v2.R;
-import com.example.pxh612_loginapi_v2.database.Messages;
+import com.example.pxh612_loginapi_v2.datasource.Messages;
 import com.example.pxh612_loginapi_v2.fragment.MyDialogFragment;
 import com.example.pxh612_loginapi_v2.viewmodel.SignupViewModel;
 

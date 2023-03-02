@@ -1,7 +1,7 @@
 package com.example.pxh612_loginapi_v2.databasehelper;
 
-import static com.example.pxh612_loginapi_v2.database.Symbols.AMP;
-import static com.example.pxh612_loginapi_v2.database.Symbols.EQL;
+import static com.example.pxh612_loginapi_v2.datasource.Symbols.AMP;
+import static com.example.pxh612_loginapi_v2.datasource.Symbols.EQL;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -108,7 +108,7 @@ public class TransactionDatabaseHelper extends SQLiteOpenHelper{
     }
 
     public void removeItemWithCustomId(int id) {
-        Timber.d("removing transaction with id" + EQL + id);
+        Timber.v("removing transaction with id" + EQL + id);
         SQLiteDatabase db = this.getWritableDatabase();
 
             // The SQLite DELETE statement allows you to delete one row, multiple rows, and all rows in a table. The syntax of the SQLite DELETE statement is as follows:
@@ -119,7 +119,7 @@ public class TransactionDatabaseHelper extends SQLiteOpenHelper{
         int deleteResult = db.delete(TABLE_NAME, CUSTOMID_COL + EQL + id, null);
         db.close();
 
-        Timber.d("deleteResult" + EQL + deleteResult);
+        Timber.v("deleteResult" + EQL + deleteResult);
     }
 
     public void removeAllItem(){

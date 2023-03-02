@@ -1,11 +1,11 @@
-package com.example.pxh612_loginapi_v2;
+package com.example.pxh612_loginapi_v2.network;
 
 import android.util.Base64;
 import android.util.Log;
 
 import com.example.pxh612_loginapi_v2.activity.LoginActivity;
-import com.example.pxh612_loginapi_v2.database.ConsumerKey;
-import com.example.pxh612_loginapi_v2.database.URLs;
+import com.example.pxh612_loginapi_v2.datasource.ConsumerKey;
+import com.example.pxh612_loginapi_v2.datasource.URLs;
 import com.example.pxh612_loginapi_v2.repository.CurrentAccount;
 
 import org.json.JSONException;

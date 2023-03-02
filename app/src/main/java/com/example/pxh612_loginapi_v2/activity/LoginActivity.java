@@ -17,10 +17,10 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.pxh612_loginapi_v2.LoginAsyncTaskListener;
+import com.example.pxh612_loginapi_v2.network.LoginAsyncTaskListener;
 import com.example.pxh612_loginapi_v2.R;
-import com.example.pxh612_loginapi_v2.database.AccountExample;
-import com.example.pxh612_loginapi_v2.database.Messages;
+import com.example.pxh612_loginapi_v2.datasource.AccountExample;
+import com.example.pxh612_loginapi_v2.datasource.Messages;
 import com.example.pxh612_loginapi_v2.fragment.MyDialogFragment;
 import com.example.pxh612_loginapi_v2.viewmodel.LoginViewModel;
 

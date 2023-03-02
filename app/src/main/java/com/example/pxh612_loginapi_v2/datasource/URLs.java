@@ -1,4 +1,4 @@
-package com.example.pxh612_loginapi_v2.database;
+package com.example.pxh612_loginapi_v2.datasource;
 
 public class URLs {
     public static final String dogAPIMistake = "https://dog.ceo/dog-api/";

@@ -1,6 +1,6 @@
 package com.example.pxh612_loginapi_v2.databasehelper;
 
-import static com.example.pxh612_loginapi_v2.database.Symbols.AMP;
+import static com.example.pxh612_loginapi_v2.datasource.Symbols.AMP;
 
 import android.content.ContentValues;
 import android.content.Context;

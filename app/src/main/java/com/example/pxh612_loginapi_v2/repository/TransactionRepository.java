@@ -1,10 +1,10 @@
 package com.example.pxh612_loginapi_v2.repository;
 
-import static com.example.pxh612_loginapi_v2.database.Symbols.EQL;
+import static com.example.pxh612_loginapi_v2.datasource.Symbols.EQL;
 
 import android.content.Context;
 
-import com.example.pxh612_loginapi_v2.database.KeyNames;
+import com.example.pxh612_loginapi_v2.datasource.KeyNames;
 import com.example.pxh612_loginapi_v2.databasehelper.KeyValueDatabaseHelper;
 import com.example.pxh612_loginapi_v2.databasehelper.TransactionDatabaseHelper;
 import com.example.pxh612_loginapi_v2.model.Transaction;
@@ -80,7 +80,7 @@ public class TransactionRepository {
     }
 
     public void removeTransaction(int transactionId) {
-        Timber.d("removing transaction with id" + EQL + transactionId);
+        Timber.v("removing transaction with id" + EQL + transactionId);
         transactionDatabaseHelper.removeItemWithCustomId(transactionId);
     }
 

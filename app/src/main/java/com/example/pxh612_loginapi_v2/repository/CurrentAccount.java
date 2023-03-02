@@ -4,7 +4,7 @@ package com.example.pxh612_loginapi_v2.repository;
 import android.content.Context;
 import android.util.Log;
 
-import com.example.pxh612_loginapi_v2.Account;
+import com.example.pxh612_loginapi_v2.model.Account;
 import com.example.pxh612_loginapi_v2.databasehelper.KeyValueDatabaseHelper;
 
 public class CurrentAccount {

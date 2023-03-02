@@ -1,8 +1,8 @@
 package com.example.pxh612_loginapi_v2.viewmodel;
 
 import com.example.pxh612_loginapi_v2.repository.CurrentAccount;
-import com.example.pxh612_loginapi_v2.LoginAsyncTask;
-import com.example.pxh612_loginapi_v2.LoginAsyncTaskListener;
+import com.example.pxh612_loginapi_v2.network.LoginAsyncTask;
+import com.example.pxh612_loginapi_v2.network.LoginAsyncTaskListener;
 
 public class LoginViewModel {
 

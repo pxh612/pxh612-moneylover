@@ -1,10 +1,8 @@
 package com.example.pxh612_loginapi_v2.viewmodel;
 
-import static com.example.pxh612_loginapi_v2.database.Symbols.EQL;
+import static com.example.pxh612_loginapi_v2.datasource.Symbols.EQL;
 
 import android.content.Context;
-import android.os.Bundle;
-import android.util.Log;
 
 import com.example.pxh612_loginapi_v2.model.Transaction;
 import com.example.pxh612_loginapi_v2.repository.TransactionRepository;
@@ -33,7 +31,7 @@ public class MainViewModel {
     }
 
     public void removeTransaction(int transactionId) {
-        Timber.d("removing transaction with id" + EQL + transactionId);
+        Timber.v("removing transaction with id" + EQL + transactionId);
         transactionRepository.removeTransaction(transactionId);
     }
 

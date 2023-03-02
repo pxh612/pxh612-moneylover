@@ -1,8 +1,8 @@
 package com.example.pxh612_loginapi_v2.activity;
 
 
-import static com.example.pxh612_loginapi_v2.database.Symbols.AMP;
-import static com.example.pxh612_loginapi_v2.database.Symbols.EQL;
+import static com.example.pxh612_loginapi_v2.datasource.Symbols.AMP;
+import static com.example.pxh612_loginapi_v2.datasource.Symbols.EQL;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,9 +18,10 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.pxh612_loginapi_v2.datasource.Enums.ACTIVITY;
 import com.example.pxh612_loginapi_v2.repository.CurrentAccount;
 import com.example.pxh612_loginapi_v2.R;
-import com.example.pxh612_loginapi_v2.database.Messages;
+import com.example.pxh612_loginapi_v2.datasource.Messages;
 import com.example.pxh612_loginapi_v2.fragment.MyDialogFragment;
 import com.example.pxh612_loginapi_v2.view.SwipeToDeleteCallback;
 import com.example.pxh612_loginapi_v2.view.TransactionRecyclerViewAdapter;
@@ -31,11 +32,6 @@ import timber.log.Timber;
 public class MainActivity extends AppCompatActivity implements MyDialogFragment.MyDialogFragmentListener, TransactionRecyclerViewAdapter.TransactionRecyclerViewAdapterListener {
 
 
-
-    enum ACTIVITY{
-        LOGIN_ACTIVITY,
-        ADD_TRANSACTION_ACTIVITY
-    }
     enum DIALOG_FRAGMENT{
         LOG_OUT,
         DELETE_ITEM

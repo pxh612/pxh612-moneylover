@@ -3,6 +3,7 @@ package com.example.pxh612_loginapi_v2.activity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.pxh612_loginapi_v2.datasource.Enums.ACTIVITY;
 import com.example.pxh612_loginapi_v2.R;
 import com.example.pxh612_loginapi_v2.viewmodel.AddTransactionViewModel;
 
@@ -24,6 +26,7 @@ public class AddTransactionActivity extends AppCompatActivity implements DatePic
 
     enum BUTTON_CLICK{
         SUBMIT,
+        AMOUNT_EDIT,
         DATE_EDIT
     }
 
@@ -74,6 +77,10 @@ public class AddTransactionActivity extends AppCompatActivity implements DatePic
             @Override
             public void onClick(View view) {onClickButton(BUTTON_CLICK.DATE_EDIT);}
         });
+        amountEditText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {onClickButton(BUTTON_CLICK.AMOUNT_EDIT);}
+        });
 
         // XML init
         displayDate(calendar);
@@ -98,6 +105,16 @@ public class AddTransactionActivity extends AppCompatActivity implements DatePic
         else if(button_click == BUTTON_CLICK.DATE_EDIT){
             editDate();
         }
+        else if(button_click == BUTTON_CLICK.AMOUNT_EDIT){
+            beginActivity(ACTIVITY.ADD_TRANSACTION_AMOUNT_ACTIVITY);
+        }
+    }
+
+    private void beginActivity(ACTIVITY activity) {
+//        if(activity == ACTIVITY.ADD_TRANSACTION_AMOUNT_ACTIVITY){
+//            Intent intent = new Intent(this, AddTransactionAmountActivity.class);
+//            startActivity(intent);
+//        }
     }
 
     private void editDate() {

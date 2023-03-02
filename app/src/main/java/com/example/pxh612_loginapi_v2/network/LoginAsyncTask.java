@@ -1,9 +1,9 @@
-package com.example.pxh612_loginapi_v2;
+package com.example.pxh612_loginapi_v2.network;
 
 import android.os.AsyncTask;
 
 import com.example.pxh612_loginapi_v2.activity.LoginActivity;
-import com.example.pxh612_loginapi_v2.database.ConsumerKey;
+import com.example.pxh612_loginapi_v2.datasource.ConsumerKey;
 
 public class LoginAsyncTask extends AsyncTask<Void, Void, LoginActivity.LOGIN_STATUS> {
 
